@@ -1,10 +1,12 @@
 package com.luan.nogue.service;
 
-import com.luan.nogue.entity.City;
 import com.luan.nogue.entity.Establishment;
+import com.luan.nogue.entity.EstablishmentCredentials;
 import com.luan.nogue.repository.CityRepository;
+import com.luan.nogue.repository.EstablishmentCredentialsRepository;
 import com.luan.nogue.repository.EstablishmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +18,42 @@ public class EstablishmentService {
     @Autowired
     private EstablishmentRepository establishmentRepository;
     @Autowired
+    private EstablishmentCredentialsRepository establishmentCredentialsRepository;
+    @Autowired
     private CityRepository cityRepository;
 
     @Transactional
-    public void save(Establishment establishment) {
+    public void updateEstablishment(Establishment establishment) {
+        Optional<Establishment> establishmentOptional = establishmentRepository.findById(establishment.getId());
+
+        establishment.setEstablishmentCredentials(
+                establishmentOptional
+                        .orElseThrow(() -> new IllegalArgumentException())
+                        .getEstablishmentCredentials()
+        );
+
         establishmentRepository.save(establishment);
+    }
+
+    @Transactional
+    public void updateEstablishmentCredentials(EstablishmentCredentials establishmentCredentials) {
+        Optional<EstablishmentCredentials> establishmentCredentialsOptional = establishmentCredentialsRepository.findById(establishmentCredentials.getId());
+
+        establishmentCredentials.setEstablishment(
+                establishmentCredentialsOptional
+                        .orElseThrow(() -> new IllegalArgumentException())
+                        .getEstablishment()
+        );
+
+        establishmentCredentialsRepository.save(establishmentCredentials);
+    }
+
+    @Transactional
+    public void save(EstablishmentCredentials establishmentCredentials) {
+        establishmentCredentials.setPassword(
+                new BCryptPasswordEncoder().encode(establishmentCredentials.getPassword())
+        );
+        establishmentCredentialsRepository.save(establishmentCredentials);
     }
 
     public Establishment findById(Long establishmentId) {

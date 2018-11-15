@@ -1,7 +1,7 @@
 package com.luan.nogue.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.luan.nogue.model.AccountCredentials;
+import com.luan.nogue.entity.EstablishmentCredentials;
 import com.luan.nogue.util.TokenAuthenticationUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,12 +28,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
                 throws AuthenticationException, IOException, ServletException {
 
-        AccountCredentials credentials = new ObjectMapper()
-                .readValue(request.getInputStream(), AccountCredentials.class);
+        EstablishmentCredentials credentials = new ObjectMapper()
+                .readValue(request.getInputStream(), EstablishmentCredentials.class);
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        credentials.getEmail(),
+                        credentials.getUsername(),
                         credentials.getPassword(),
                         Collections.emptyList()
                 )

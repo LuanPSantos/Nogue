@@ -1,20 +1,25 @@
 package com.luan.nogue.service;
 
-import com.luan.nogue.entity.*;
+import com.luan.nogue.entity.Coupon;
 import com.luan.nogue.repository.CouponRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
-import static  org.mockito.Mockito.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+
+import static com.luan.nogue.creator.ObjectsCreator.createCoupon;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,31 +33,86 @@ public class CouponServiceTest {
 
     @Test
     @DisplayName("Should find a coupon by ID")
-    public void should_find_a_coupon_by_id(){
+    public void should_find_a_coupon_by_id() {
         Coupon coupon = createCoupon();
         when(couponRepository.findById(any())).thenReturn(Optional.of(coupon));
 
         Coupon result = couponService.findById(1l);
 
-        Assert.assertEquals(result, coupon);
+        assertCoupon(result, coupon);
     }
 
-    private Coupon createCoupon(){
-        Establishment establishment = new Establishment();
-        establishment.setId(1l);
+    @Test
+    @DisplayName("Should not find a coupon by ID")
+    public void should_not_find_a_coupon_by_id() {
+        when(couponRepository.findById(any())).thenReturn(Optional.empty());
 
-        Status status = new Status();
-        status.setId(1l);
+        Coupon result = couponService.findById(1l);
 
-        Coupon coupon = new Coupon();
-        coupon.setAutomaticDeactivationDate(LocalDateTime.of(2018,11,13,20,16));
-        coupon.setAmount(10);
-        coupon.setDepartment("Clothes");
-        coupon.setEstablishment(establishment);
-        coupon.setId(1l);
-        coupon.setStatus(status);
-        coupon.setUnlimited(false);
+        assertNull(result);
+    }
 
-        return coupon;
+    @Test
+    @DisplayName("Should find coupons by City and Business Name")
+    public void should_find_coupons_by_city_and_business_name() {
+        List<Coupon> coupons = Arrays.asList(
+                createCoupon(),
+                createCoupon()
+        );
+        when(couponRepository.findByCityAndBusinessName(any(), any())).thenReturn(Optional.of(coupons));
+
+        List<Coupon> result = couponService.findByCityAndBusinessName(1l, "Business Name");
+
+        assertEquals(2, result.size());
+        result.forEach((coupon -> assertCoupon(createCoupon(), coupon)));
+    }
+
+    @Test
+    @DisplayName("Should not find coupons by City and Business Name")
+    public void should_not_find_coupons_by_city_and_business_name() {
+        when(couponRepository.findByCityAndBusinessName(any(), any())).thenReturn(Optional.empty());
+
+        List<Coupon> result = couponService.findByCityAndBusinessName(1l, "Business Name");
+
+        assertEquals(0, result.size());
+    }
+
+    @Test(expected = InvalidDataAccessApiUsageException.class)
+    @DisplayName("Should not find coupons with no city as param")
+    public void should_not_find_coupons_with_no_city_as_param() {
+        when(couponRepository.findByCityAndBusinessName(eq(null), any())).thenReturn(Optional.empty());
+
+        couponService.findByCityAndBusinessName(null, "Business Name");
+    }
+
+    @Test
+    @DisplayName("Should not find coupons with no business name as param")
+    public void should_not_find_coupons_with_no_business_name_as_param() {
+        when(couponRepository.findByCityAndBusinessName(any(), eq(null))).thenReturn(Optional.empty());
+
+        List<Coupon> result = couponService.findByCityAndBusinessName(1l, null);
+
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    @DisplayName("Should save a coupon")
+    public void should_save_a_coupon() {
+        Coupon coupon = createCoupon();
+        when(couponRepository.save(coupon)).thenReturn(coupon);
+
+        couponService.save(coupon);
+
+        assertTrue(true);
+    }
+
+    private void assertCoupon(Coupon c1, Coupon c2) {
+        assertEquals(c1.getId(), c2.getId());
+        assertEquals(c1.getAmount(), c2.getAmount());
+        assertEquals(c1.getAutomaticDeactivationDate(), c2.getAutomaticDeactivationDate());
+        assertEquals(c1.getDepartment(), c2.getDepartment());
+        assertNotNull(c1.getEstablishment());
+        assertEquals(c1.getStatus().getId(), c2.getStatus().getId());
+        assertEquals(c1.getUnlimited(), c2.getUnlimited());
     }
 }

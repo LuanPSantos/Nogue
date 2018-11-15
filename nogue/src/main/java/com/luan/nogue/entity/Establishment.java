@@ -16,17 +16,19 @@ public class Establishment implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
+
     @JsonIgnore
-    private String password;
+    @OneToOne(mappedBy = "establishment")
+    private EstablishmentCredentials establishmentCredentials;
     private String businessName;
     private String cnpj;
+    private String email;
 
     @ManyToOne
     private City city;
 
-    @OneToMany(mappedBy = "establishment")
     @JsonIgnore
+    @OneToMany(mappedBy = "establishment")
     private List<Coupon> coupons;
 
     public Long getId() {
@@ -37,16 +39,12 @@ public class Establishment implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public EstablishmentCredentials getEstablishmentCredentials() {
+        return establishmentCredentials;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEstablishmentCredentials(EstablishmentCredentials establishmentCredentials) {
+        this.establishmentCredentials = establishmentCredentials;
     }
 
     public String getBusinessName() {
@@ -81,37 +79,52 @@ public class Establishment implements Serializable, UserDetails {
         this.coupons = coupons;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
-        return this.password;
+        return this.establishmentCredentials.getPassword();
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
-        return this.email;
+        return this.establishmentCredentials.getUsername();
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

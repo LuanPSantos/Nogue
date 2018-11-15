@@ -1,6 +1,7 @@
 package com.luan.nogue.controller;
 
 import com.luan.nogue.entity.Establishment;
+import com.luan.nogue.entity.EstablishmentCredentials;
 import com.luan.nogue.service.EstablishmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,18 @@ public class EstablishmentController {
     private EstablishmentService establishmentService;
 
     @PostMapping
-    public void persist(@RequestBody Establishment establishment){
-        establishmentService.save(establishment);
+    public void save(@RequestBody EstablishmentCredentials establishmentCredentials){
+        establishmentService.save(establishmentCredentials);
     }
 
     @PutMapping
-    public void update(@RequestBody Establishment establishment){
-        establishmentService.save(establishment);
+    public void updateEstablishment(@RequestBody Establishment establishment){
+        establishmentService.updateEstablishment(establishment);
+    }
+
+    @PutMapping(path = "credentials")
+    public void updateEstablishmentCredentials(@RequestBody EstablishmentCredentials establishmentCredentials){
+        establishmentService.updateEstablishmentCredentials(establishmentCredentials);
     }
 
     @GetMapping(path = "{establishmentId}")

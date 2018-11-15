@@ -34,7 +34,13 @@ public class CouponService {
         Optional<City> cityOptional = cityRepository.findById(cityId);
 
         List<Coupon> coupons = new ArrayList<>();
-        cityOptional.ifPresent((city -> coupons.addAll(couponRepository.findByCityAndBusinessName(city, businessName))));
+        cityOptional.ifPresent((city ->
+                coupons.addAll(
+                        couponRepository
+                                .findByCityAndBusinessName(city, businessName)
+                                .orElse(new ArrayList<>()))
+                )
+        );
 
         return coupons;
     }

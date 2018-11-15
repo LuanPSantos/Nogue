@@ -22,7 +22,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeRequests()
+        httpSecurity
+                .cors().disable()
+                .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/coupon").permitAll()
                 .antMatchers(HttpMethod.GET, "/coupon/{\\d+}").permitAll()
                 .antMatchers(HttpMethod.GET, "/localization/**").permitAll()

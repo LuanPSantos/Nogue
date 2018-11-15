@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
@@ -18,5 +19,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
             "where establishment.businessName like concat('%',:businessName,'%') "+
             "and city = :city"
     )
-    List<Coupon> findByCityAndBusinessName(City city, String businessName);
+    Optional<List<Coupon>> findByCityAndBusinessName(City city, String businessName);
 }
