@@ -1,10 +1,5 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,24 +7,23 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { BaseModule } from './base/base.module';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent
+  ],
   imports: [
-    BaseModule,
     BrowserModule,
-    IonicModule.forRoot(),
+    BrowserAnimationsModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects])
   ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
