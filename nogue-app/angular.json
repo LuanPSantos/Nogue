@@ -164,10 +164,10 @@
     }
   },
   "cli": {
-    "defaultCollection": "@ionic/angular-toolkit"
+    "defaultCollection": "@ngrx/schematics"
   },
   "schematics": {
-    "@ionic/angular-toolkit:component": {
+    "@ngrx/schematics:component": {
       "styleext": "scss"
     },
     "@ionic/angular-toolkit:page": {
