@@ -13,11 +13,11 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToLogin() {
+  public goToLogin() {
     this.router.navigate(['/login']);
   }
 
-  goToCoupons() {
-    console.log('Coupons');
+  public goToCouponsHome() {
+    this.router.navigate(['/coupons-home']);
   }
 }

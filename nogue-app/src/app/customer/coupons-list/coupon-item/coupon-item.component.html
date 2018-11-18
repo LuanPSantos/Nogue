@@ -1,0 +1,14 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-card>
+      <div>
+        <p class="establishment-name">{{coupon?.establishment?.businessName}}</p>
+        <p class="discount">{{coupon?.discount}}% off</p>
+        <p class="department">{{coupon?.department}}</p>
+      </div>
+      <p-footer>
+          <button class="full-width ui-button-primary" pButton label="Abrir" (click)="openCoupon()"></button>
+      </p-footer>
+    </p-card>
+  </div>
+</div>
