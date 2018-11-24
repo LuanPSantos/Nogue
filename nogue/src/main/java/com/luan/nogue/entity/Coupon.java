@@ -1,5 +1,7 @@
 package com.luan.nogue.entity;
 
+import com.luan.nogue.constant.Status;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,11 +17,12 @@ public class Coupon implements Serializable {
     private Integer amount;
     private Boolean unlimited;
     private LocalDateTime automaticDeactivationDate;
+    private Float discount;
 
     @ManyToOne
     private Establishment establishment;
 
-    @ManyToOne
+    @Enumerated(EnumType.ORDINAL)
     private Status status;
 
     public Long getId() {
@@ -76,6 +79,14 @@ public class Coupon implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
     }
 
     @Override

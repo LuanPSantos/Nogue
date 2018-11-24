@@ -5,7 +5,8 @@ import { CouponDetailComponent } from './coupon-detail/coupon-detail.component';
 
 const routes: Routes = [
   { path: '', component: CouponsHomeComponent},
-  { path: 'coupon/:id', component: CouponDetailComponent }
+  { path: 'coupon/:id', component: CouponDetailComponent },
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

@@ -1,0 +1,50 @@
+.status-active{
+  background-color: #34A835;
+}
+
+.div-status {
+  width: 60px;
+  height: 24px;
+  border-radius: 0px 3px 0px 10px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  color: white;
+  text-align: center;
+  padding: 3px;
+}
+
+.status-inactive{
+  background-color: #e91224;
+}
+
+.container{
+  position: relative;
+}
+
+.discount{
+  font-size: 28pt;
+  font-weight: bold;
+  text-align: center;
+  color: #646464;
+}
+
+.department{
+  font-size: 18pt;
+  text-align: center;
+  color: #646464;
+}
+
+.establishment{
+  font-size: 14pt;
+  font-weight: bold;
+  color: white;
+  padding: 5px;
+}
+
+ul {
+  list-style-type: none;
+}
+li {
+  padding: 5px;
+}

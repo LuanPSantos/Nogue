@@ -6,7 +6,8 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: '', component: AuthComponent},
   { path: 'coupons-home', loadChildren: '../customer/customer.module#CustomerModule'},
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

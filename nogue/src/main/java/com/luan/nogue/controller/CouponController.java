@@ -30,7 +30,7 @@ public class CouponController {
     }
 
     @GetMapping
-    public List<Coupon> findByCityAndBusinessName(@RequestParam("cityId") Long cityId, @RequestParam("businessName") String businessName){
+    public List<Coupon> findByCityAndBusinessName(@RequestParam("cityId") Long cityId, @RequestParam(value = "businessName", required = false) String businessName){
         return couponService.findByCityAndBusinessName(cityId, businessName);
     }
 }

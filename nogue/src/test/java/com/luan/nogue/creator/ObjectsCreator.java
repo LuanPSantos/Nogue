@@ -1,5 +1,6 @@
 package com.luan.nogue.creator;
 
+import com.luan.nogue.constant.Status;
 import com.luan.nogue.entity.*;
 
 import java.time.LocalDateTime;
@@ -8,11 +9,9 @@ import java.util.ArrayList;
 public class ObjectsCreator {
 
     public static Status createStatus(){
-        Status status = new Status();
-        status.setId(1l);
-        status.setDescription("Ativo");
 
-        return status;
+
+        return Status.ACTIVE;
     }
 
     public static State createState(){
@@ -36,7 +35,7 @@ public class ObjectsCreator {
     public static Establishment createEstablishment(){
         Establishment establishment = new Establishment();
         establishment.setId(1l);
-//        establishment.setPassword("123");
+        establishment.setEstablishmentCredentials(createEstablishmentCredentials());
         establishment.setEmail("email");
         establishment.setCnpj("1234567890");
         establishment.setBusinessName("Establishment");
@@ -57,5 +56,14 @@ public class ObjectsCreator {
         coupon.setEstablishment(new Establishment());
 
         return coupon;
+    }
+
+    public static EstablishmentCredentials createEstablishmentCredentials(){
+        EstablishmentCredentials establishmentCredentials = new EstablishmentCredentials();
+        establishmentCredentials.setId(1l);
+        establishmentCredentials.setPassword("123");
+        establishmentCredentials.setUsername("user");
+
+        return establishmentCredentials;
     }
 }

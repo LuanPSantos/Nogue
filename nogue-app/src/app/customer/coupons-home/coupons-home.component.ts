@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Coupon } from 'src/app/shared/model/coupon.model';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { LoadCoupons } from '../actions/customer.actions';
+import { selectCoupons } from '../reducers/customer.reducer';
 
 @Component({
   selector: 'app-coupons-home',
@@ -10,50 +14,22 @@ import { Router } from '@angular/router';
 })
 export class CouponsHomeComponent implements OnInit {
 
-  coupons$: Observable<Coupon[]> = of([
-    {
-      id: 1,
-      department: 'Bolsas',
-      discount: 15,
-      establishment: {
-        businessName: 'Loja da Detinha'
-      }
-    },
-    {
-      id: 2,
-      department: 'Bolsas',
-      discount: 15,
-      establishment: {
-        businessName: 'Loja da Detinha'
-      }
-    },
-    {
-      id: 3,
-      department: 'Bolsas',
-      discount: 15,
-      establishment: {
-        businessName: 'Loja da Detinha'
-      }
-    }, {
-      id: 4,
-      department: 'Bolsas',
-      discount: 15,
-      establishment: {
-        businessName: 'Loja da Detinha'
-      }
-    }, {
-      id: 5,
-      department: 'Bolsas',
-      discount: 15,
-      establishment: {
-        businessName: 'Loja da Detinha'
-      }
-    }
-  ]);
+  coupons$: Observable<Coupon[]>;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) {
+
+  }
 
   ngOnInit() {
+    this.store.dispatch(new LoadCoupons({
+      cityId: 4749,
+      businessName: 'i'
+    }));
+
+    this.coupons$ = this.store.select(selectCoupons);
   }
 
   onCouponOpen(coupon) {

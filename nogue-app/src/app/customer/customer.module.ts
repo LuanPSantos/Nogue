@@ -12,6 +12,10 @@ import {
   CardModule,
   ButtonModule
 } from 'primeng/primeng';
+import { StoreModule } from '@ngrx/store';
+import * as fromCustomer from './reducers/customer.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CustomerEffects } from './effects/customer.effects';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import {
     CardModule,
     CommonModule,
     ButtonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    StoreModule.forFeature('customer', fromCustomer.reducer),
+    EffectsModule.forFeature([CustomerEffects])
   ]
 })
 export class CustomerModule { }

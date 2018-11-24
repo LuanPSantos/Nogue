@@ -112,7 +112,7 @@ public class CouponServiceTest {
         assertEquals(c1.getAutomaticDeactivationDate(), c2.getAutomaticDeactivationDate());
         assertEquals(c1.getDepartment(), c2.getDepartment());
         assertNotNull(c1.getEstablishment());
-        assertEquals(c1.getStatus().getId(), c2.getStatus().getId());
+        assertEquals(c1.getStatus(), c2.getStatus());
         assertEquals(c1.getUnlimited(), c2.getUnlimited());
     }
 }
