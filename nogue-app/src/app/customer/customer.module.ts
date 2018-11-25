@@ -16,6 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCustomer from './reducers/customer.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './effects/customer.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CustomerEffects } from './effects/customer.effects';
     CardModule,
     CommonModule,
     ButtonModule,
+    ReactiveFormsModule,
     CustomerRoutingModule,
     StoreModule.forFeature('customer', fromCustomer.reducer),
     EffectsModule.forFeature([CustomerEffects])

@@ -1,4 +1,6 @@
-<app-search-engine></app-search-engine>
+<app-search-engine
+  (searchCoupon)="onSearchCoupon($event)"
+></app-search-engine>
 <app-coupons-list 
   [coupons]="coupons$ | async"
   (open)="onCouponOpen($event)"></app-coupons-list>

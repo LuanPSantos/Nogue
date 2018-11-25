@@ -23,4 +23,8 @@ export class CouponService {
 
     return this.http.get<Coupon[]>(this.COUPON_URL, { params: params });
   }
+
+  public findById(couponId: number): Observable<Coupon> {
+    return this.http.get<Coupon>(`${this.COUPON_URL}/${couponId}`);
+  }
 }

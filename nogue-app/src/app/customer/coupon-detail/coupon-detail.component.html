@@ -1,17 +1,17 @@
 <div class="ui-g">
   <div class="ui-g-12 ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4 white container ui-card">
-    <div [ngClass]="{'status-active': isActive(coupon), 'status-inactive': !isActive(coupon)}" class="div-status">{{isActive(coupon) === true ? 'Ativo' : 'Inativo'}}</div>
+    <div [ngClass]="{'status-active': isActive((coupon$ | async)), 'status-inactive': !isActive((coupon$ | async))}" class="div-status">{{isActive((coupon$ | async)) === true ? 'Ativo' : 'Inativo'}}</div>
 
 
-    <p class="discount">{{coupon?.discount}}% de desconto!</p>
-    <p class="department">{{coupon?.department}}</p>
+    <p class="discount">{{(coupon$ | async)?.discount}}% de desconto!</p>
+    <p class="department">{{(coupon$ | async)?.department}}</p>
 
-    <p class="establishment primary">{{coupon?.establishment.businessName}}</p>
+    <p class="establishment primary">{{(coupon$ | async)?.establishment.businessName}}</p>
     <ul>
-      <li class="unlimited" *ngIf="coupon?.unlimited === false">{{coupon?.amount}} unidades restantes.</li>
-      <li class="unlimited" *ngIf="coupon?.unlimited === true">Cupons <strong>Ilimitados</strong> ou até que se acabe o
+      <li class="unlimited" *ngIf="(coupon$ | async)?.unlimited === false">{{(coupon$ | async)?.amount}} unidades restantes.</li>
+      <li class="unlimited" *ngIf="(coupon$ | async)?.unlimited === true">Cupons <strong>Ilimitados</strong> ou até que se acabe o
         estoque!</li>
-      <li class="deactivation">{{calcutateRemainingDate(coupon?.automaticDeactivationDate)}} restantes.</li>
+      <li class="deactivation">{{calcutateRemainingDate((coupon$ | async)?.automaticDeactivationDate)}} restantes.</li>
     </ul>
   </div>
 </div>

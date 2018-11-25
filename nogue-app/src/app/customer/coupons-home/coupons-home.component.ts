@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { LoadCoupons } from '../actions/customer.actions';
 import { selectCoupons } from '../reducers/customer.reducer';
+import { SearchCouponFilter } from 'src/app/shared/model/search-coupon-filter.model';
 
 @Component({
   selector: 'app-coupons-home',
@@ -24,11 +25,6 @@ export class CouponsHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadCoupons({
-      cityId: 4749,
-      businessName: 'i'
-    }));
-
     this.coupons$ = this.store.select(selectCoupons);
   }
 
@@ -36,4 +32,10 @@ export class CouponsHomeComponent implements OnInit {
     this.router.navigate(['/coupons-home/coupon', coupon.id]);
   }
 
+  onSearchCoupon(filter) {
+    this.store.dispatch(new LoadCoupons({
+      cityId: filter.cityId,
+      businessName: filter.businessName
+    }));
+  }
 }

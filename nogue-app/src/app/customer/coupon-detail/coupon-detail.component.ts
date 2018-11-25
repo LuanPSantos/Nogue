@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Coupon } from 'src/app/shared/model/coupon.model';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { LoadCoupon } from '../actions/customer.actions';
+import { Observable } from 'rxjs';
+import { selectCoupon } from '../reducers/customer.reducer';
 
 @Component({
   selector: 'app-coupon-detail',
@@ -8,40 +14,35 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 })
 export class CouponDetailComponent implements OnInit {
 
-  coupon: Coupon = {
-    id: 1,
-    department: 'Bolsas',
-    discount: 15,
-    amount: 0,
-    automaticDeactivationDate: new Date(2018, 10, 20, 0, 0),
-    status: {
-      description: 'Active',
-      id: 2
-    },
-    unlimited: false,
-    establishment: {
-      id: 1,
-      businessName: 'Loja da Detinha',
-      city: {
-        id: 100,
-        name: 'Artur Nogueira'
-      },
-      cnpj: '111.111.111.111',
-      email: 'email@email'
-    }
-  };
+  ACTIVE = 'ACTIVE';
 
-  constructor() { }
+  coupon$: Observable<Coupon>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new LoadCoupon({ couponId: this.route.snapshot.params['id'] }));
+
+    this.coupon$ = this.store.select(selectCoupon);
   }
 
   public isActive(coupon: Coupon): boolean {
-    return coupon.status.id === 1;
+    if (!coupon) { return false; }
+
+    return coupon.status === this.ACTIVE;
   }
 
-  public calcutateRemainingDate(deactivation: Date): string {
-    const remainingTime: number = deactivation.getTime() - new Date().getTime();
+  public calcutateRemainingDate(deactivationData: number[]): string {
+    if (!deactivationData) { return; }
+
+    const remainingTime: number = new Date(
+      deactivationData[0],
+      deactivationData[1] - 1,
+      deactivationData[2],
+      deactivationData[3],
+      deactivationData[4]).getTime() - new Date().getTime();
 
     const days = Math.floor(remainingTime / 86_400_000);
     let rest = remainingTime % 86_400_000;
