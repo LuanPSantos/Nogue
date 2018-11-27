@@ -1,3 +1,51 @@
-<p>
-  register works!
-</p>
+<form [formGroup]="registerForm">
+
+  <div class="ui-g">
+    <div class="ui-g-12 ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4 white container">
+
+      <div class="ui-g-12  input-register">
+        <h3 class="label-register">Cadastre-se!</h3>
+        <h5 class="label-register">E se torne um parceiro do Nogue o/</h5>
+      </div>
+
+      <div class="ui-g-12  input-register">
+        <span class="ui-float-label">
+          <input id="input-username" type="text" class="full-width" pInputText formControlName="username">
+          <label for="input-username">Nome de usuário</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-register">
+        <span class="ui-float-label">
+          <input id="input-password" type="password" class="full-width" pInputText formControlName="password">
+          <label for="input-password">Senha</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-register">
+        <span class="ui-float-label">
+          <input id="input-business-name" type="text" class="full-width" pInputText formControlName="businessName">
+          <label for="input-business-name">Nome fantasia</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-register">
+        <span class="ui-float-label">
+          <input id="input-email" type="email" class="full-width" pInputText formControlName="email">
+          <label for="input-email">E-mail</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-register">
+        <span class="ui-float-label">
+          <p-inputMask id="input-cnpj"  styleClass="full-width" formControlName="cnpj" unmask="true" mask="99.999.999/9999-99"></p-inputMask>
+          <label for="input-cnpj">CNPJ</label>
+        </span>
+      </div>
+
+      <div class="ui-g-6 ui-g-offset-6 button-register">
+        <button class="full-width ui-button-success" pButton label="Cadastrar-se" (click)="register()"></button>
+      </div>
+    </div>
+  </div>
+</form>

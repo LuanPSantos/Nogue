@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: '', component: AuthComponent},
   { path: 'coupons-home', loadChildren: '../customer/customer.module#CustomerModule'},
+  { path: 'establishment', loadChildren: '../establishment/establishment.module#EstablishmentModule'},
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: ''}
 ];
