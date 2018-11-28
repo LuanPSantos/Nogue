@@ -38,9 +38,19 @@
 
       <div class="ui-g-12  input-register">
         <span class="ui-float-label">
-          <p-inputMask id="input-cnpj"  styleClass="full-width" formControlName="cnpj" unmask="true" mask="99.999.999/9999-99"></p-inputMask>
+          <p-inputMask id="input-cnpj" styleClass="full-width" formControlName="cnpj" unmask="true" mask="99.999.999/9999-99"></p-inputMask>
           <label for="input-cnpj">CNPJ</label>
         </span>
+      </div>
+
+      <div class="ui-g-4  input-register">
+        <p-dropdown [options]="states$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Estado"
+          optionLabel="initials" [filter]="true" formControlName="state"></p-dropdown>
+      </div>
+
+      <div class="ui-g-8  input-register">
+        <p-dropdown [options]="cities$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Cidade"
+          optionLabel="name" [filter]="true" formControlName="city"></p-dropdown>
       </div>
 
       <div class="ui-g-6 ui-g-offset-6 button-register">

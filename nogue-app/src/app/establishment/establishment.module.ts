@@ -11,7 +11,8 @@ import {
   InputTextModule,
   ButtonModule,
   InputMaskModule,
-  SidebarModule
+  SidebarModule,
+  DropdownModule
 } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
@@ -25,6 +26,7 @@ import { CouponsListModule } from '../shared/component/coupons-list/coupons-list
     UpdateCouponComponent
   ],
   imports: [
+    DropdownModule,
     SidebarModule,
     CouponsListModule,
     ButtonModule,

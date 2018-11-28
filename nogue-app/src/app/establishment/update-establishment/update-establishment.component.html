@@ -1,3 +1,63 @@
-<p>
-  update-establishment works!
-</p>
+<form [formGroup]="updateForm">
+
+  <div class="ui-g">
+    <div class="ui-g-12 ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4 white container ui-card">
+
+      <div class="ui-g-12  input-update">
+        <h3 class="label-update">Atualize seus dados ;)</h3>
+      </div>
+
+      <div class="ui-g-12  input-update">
+        <span class="ui-float-label">
+          <input id="input-username" type="text" class="full-width" pInputText formControlName="username">
+          <label for="input-username">Nome de usuário</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-update">
+        <span class="ui-float-label">
+          <input id="input-password" type="password" class="full-width" pInputText formControlName="password">
+          <label for="input-password">Senha</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-update">
+        <span class="ui-float-label">
+          <input id="input-business-name" type="text" class="full-width" pInputText formControlName="businessName">
+          <label for="input-business-name">Nome fantasia</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-update">
+        <span class="ui-float-label">
+          <input id="input-email" type="email" class="full-width" pInputText formControlName="email">
+          <label for="input-email">E-mail</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12  input-update">
+        <span class="ui-float-label">
+          <p-inputMask id="input-cnpj" styleClass="full-width" formControlName="cnpj" unmask="true" mask="99.999.999/9999-99"></p-inputMask>
+          <label for="input-cnpj">CNPJ</label>
+        </span>
+      </div>
+
+      <div class="ui-g-4  input-update">
+        <p-dropdown [options]="states$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Estado"
+          optionLabel="initials" [filter]="true" formControlName="state"></p-dropdown>
+      </div>
+
+      <div class="ui-g-8  input-update">
+        <p-dropdown [options]="cities$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Cidade"
+          optionLabel="name" [filter]="true" formControlName="city"></p-dropdown>
+      </div>
+
+      <div class="ui-g-6 button-update">
+        <button class="full-width ui-button-danger" pButton label="Excluir a conta" (click)="delete()"></button>
+      </div>
+      <div class="ui-g-6 button-update">
+        <button class="full-width ui-button-success" pButton label="Atualizar" (click)="update()"></button>
+      </div>
+    </div>
+  </div>
+</form>
