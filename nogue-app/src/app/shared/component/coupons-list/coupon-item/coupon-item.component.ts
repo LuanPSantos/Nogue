@@ -10,15 +10,17 @@ export class CouponItemComponent implements OnInit {
 
   @Input()
   public coupon: Coupon;
+  @Input()
+  public label: string;
   @Output()
-  public open: EventEmitter<Coupon> = new EventEmitter();
+  public buttonClick: EventEmitter<Coupon> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  public openCoupon() {
-    this.open.emit(this.coupon);
+  public onButtonClick() {
+    this.buttonClick.emit(this.coupon);
   }
 }

@@ -2,5 +2,6 @@
   (searchCoupon)="onSearchCoupon($event)"
 ></app-search-engine>
 <app-coupons-list 
+  buttonLabel="Abrir"
   [coupons]="coupons$ | async"
-  (open)="onCouponOpen($event)"></app-coupons-list>
+  (buttonClick)="onCouponOpen($event)"></app-coupons-list>

@@ -7,12 +7,12 @@ import { UpdateCouponComponent } from './update-coupon/update-coupon.component';
 import { UpdateEstablishmentComponent } from './update-establishment/update-establishment.component';
 
 const routes: Routes = [
-  { path: '', component: CouponsEstablishmentComponent },
+  { path: 'coupons', component: CouponsEstablishmentComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'coupon-register', component: CouponRegisterComponent },
-  { path: 'update-coupon', component: UpdateCouponComponent },
-  { path: 'update-establishment', component: UpdateEstablishmentComponent },
-  { path: '**', redirectTo: ''}
+  { path: 'coupon-update/:id', component: UpdateCouponComponent },
+  { path: 'update', component: UpdateEstablishmentComponent },
+  { path: '**', redirectTo: 'coupons'}
 ];
 
 @NgModule({

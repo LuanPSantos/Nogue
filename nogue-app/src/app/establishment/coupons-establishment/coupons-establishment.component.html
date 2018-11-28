@@ -1,3 +1,63 @@
-<p>
-  coupons-establishment works!
-</p>
+<div class="ui-g">
+  <div class="ui-g-12 primary container ui-card">
+
+    <div class="ui-g">
+      <div class="ui-g-10">
+        <label class="establishment-name">Empresa Teste</label>
+      </div>
+      <div class="ui-g-2 ui-g-nopad">
+        <i class="pi pi-bars establishment-more-options" (click)="showOptions()"></i>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-12 ui-g-nopad">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h3 class="coupons-group-label">Cupons Ativos</h3>
+      </div>
+    </div>
+
+    <app-coupons-list buttonLabel="Editar" [coupons]="activeCoupons$ | async" (buttonClick)="onCouponOpen($event)"></app-coupons-list>
+
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-12 ui-g-nopad">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h3 class="coupons-group-label">Cupons Inativos</h3>
+      </div>
+    </div>
+
+    <app-coupons-list buttonLabel="Editar" [coupons]="inactiveCoupons$ | async" (buttonClick)="onCouponOpen($event)"></app-coupons-list>
+
+  </div>
+</div>
+<div class="ui-g">
+  <div class="ui-g-12 footer-container">
+    <button pButton type="button" icon="pi pi-plus" class="add-coupon" (click)="openCouponRegister()"></button>
+  </div>
+</div>
+
+<p-sidebar [(visible)]="optionsVisible" position="right" [baseZIndex]="10000">
+  <div class="ui-g menu-options menu-item" (click)="openEstablishmentUpdate()">
+    <div class="ui-g-2 ui-g-nopad">
+      <i class="pi pi-user icon-item-menu"></i>
+    </div>
+    <div class="ui-g-10 ui-g-nopad">
+      <p class="label-item-menu">Editar o perfil</p>
+    </div>
+  </div>
+
+  <div class="ui-g menu-item" (click)="logout()">
+    <div class="ui-g-2 ui-g-nopad">
+      <i class="pi pi-sign-out icon-item-menu"></i>
+    </div>
+    <div class="ui-g-10 ui-g-nopad">
+      <p class="label-item-menu">Sair</p>
+    </div>
+  </div>
+</p-sidebar>

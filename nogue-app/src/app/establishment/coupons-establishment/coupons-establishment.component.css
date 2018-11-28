@@ -1,0 +1,39 @@
+.coupons-group-label{
+  color: #a6a6a6;
+}
+
+.establishment-name{
+  color: white;
+}
+
+.add-coupon{
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+}
+
+.footer-container{
+  height: 72px;
+}
+
+.establishment-more-options{
+  font-size: 32px;
+  color: white;
+  float: right;
+}
+
+.menu-options{
+  margin-top: 40px;
+}
+
+.icon-item-menu{
+  float: left;
+  font-size: 21px;
+}
+
+.menu-item{
+  margin-bottom: 20px;
+}

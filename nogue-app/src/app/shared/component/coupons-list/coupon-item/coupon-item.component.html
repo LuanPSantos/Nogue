@@ -7,7 +7,7 @@
         <p class="department">{{coupon?.department}}</p>
       </div>
       <p-footer>
-          <button class="full-width ui-button-primary" pButton label="Abrir" (click)="openCoupon()"></button>
+          <button class="full-width ui-button-primary" pButton [label]="label" (click)="onButtonClick()"></button>
       </p-footer>
     </p-card>
   </div>

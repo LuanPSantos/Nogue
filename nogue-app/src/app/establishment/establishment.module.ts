@@ -10,9 +10,11 @@ import { UpdateCouponComponent } from './update-coupon/update-coupon.component';
 import {
   InputTextModule,
   ButtonModule,
-  InputMaskModule
+  InputMaskModule,
+  SidebarModule
 } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     UpdateCouponComponent
   ],
   imports: [
+    SidebarModule,
+    CouponsListModule,
     ButtonModule,
     InputTextModule,
     CommonModule,

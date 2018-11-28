@@ -29,6 +29,6 @@ body{
 }
 
 .primary {
-  background-color: #007ad9;
+  background-color: #007ad9 !important;
 }
 

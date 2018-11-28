@@ -1,7 +1,8 @@
 <div class="ui-g container">
   <div class="ui-g-12 ui-sm-6 ui-md-4 ui-lg-3 ui-xl-2 ui-g-nopad" *ngFor="let coupon of coupons">
     <app-coupon-item
+      [label]="buttonLabel"
       [coupon]="coupon"
-      (open)="onCouponOpen($event)"></app-coupon-item>
+      (buttonClick)="onButtonClick($event)"></app-coupon-item>
   </div>
 </div>

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    console.log('Entrar');
+    this.router.navigate(['establishment/home']);
   }
 
 }
