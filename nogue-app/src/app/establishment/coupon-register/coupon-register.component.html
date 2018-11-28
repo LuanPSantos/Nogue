@@ -1,3 +1,50 @@
-<p>
-  coupon-register works!
-</p>
+<form [formGroup]="couponForm">
+
+  <div class="ui-g">
+    <div class="ui-g-12 ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4 white container ui-card">
+
+      <div class="ui-g-12 input-coupon">
+        <h3 class="label-coupon">Um novo cupom!</h3>
+        <h5 class="label-coupon">Seus clientes vão adorar :O</h5>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <span class="ui-float-label">
+          <input id="input-department" type="text" class="full-width" pInputText formControlName="department">
+          <label for="input-department">Departamento</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <span class="ui-float-label">
+          <input id="input-discount" type="text" class="full-width" pInputText formControlName="discount">
+          <label for="input-discount">Desconto</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12 input-coupon chkbox-label-unlimited">
+          <p-checkbox name="unlimited" label="Itens ilimitados" formControlName="unlimited" binary="true"></p-checkbox>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <span class="ui-float-label">
+          <input id="input-amount" type="text" class="full-width" pInputText formControlName="amount">
+          <label for="input-amount">Quantidade</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <p-calendar [showTime]="true" inputStyleClass="full-width" [style]="{'width': '100%'}" formControlName="automaticDeactivationDate"
+          [touchUI]="true" placeholder="Dada de expiração"></p-calendar>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <p-dropdown [options]="status" [style]="{'width': '100%'}" class="full-width" placeholder="Status" formControlName="status"></p-dropdown>
+      </div>
+
+      <div class="ui-g-6 ui-g-offset-6 button-coupon">
+        <button class="full-width ui-button-success" pButton label="Criar" (click)="create()"></button>
+      </div>
+    </div>
+  </div>
+</form>

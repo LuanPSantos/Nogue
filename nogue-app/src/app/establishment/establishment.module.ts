@@ -12,7 +12,9 @@ import {
   ButtonModule,
   InputMaskModule,
   SidebarModule,
-  DropdownModule
+  DropdownModule,
+  CalendarModule,
+  CheckboxModule
 } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
@@ -26,6 +28,8 @@ import { CouponsListModule } from '../shared/component/coupons-list/coupons-list
     UpdateCouponComponent
   ],
   imports: [
+    CalendarModule,
+    CheckboxModule,
     DropdownModule,
     SidebarModule,
     CouponsListModule,
