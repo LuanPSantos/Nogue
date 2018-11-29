@@ -4,11 +4,13 @@
     <form [formGroup]="searchForm">
       <div class="ui-g">
         <div class="ui-g-12  ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4">
-          <div class="ui-inputgroup">
+            <input type="text" class="full-width" pInputText placeholder="Nome da Loja, Padaria, Mercado..."
+            formControlName="businessName" (keyup.enter)="onKeyEnter()">
+          <!-- <div class="ui-inputgroup">
             <input type="text" class="full-width" pInputText placeholder="Nome da Loja, Padaria, Mercado..."
               formControlName="businessName" (keyup.enter)="onKeyEnter()">
             <button pButton type="button" icon="pi pi-search" (click)="onKeyEnter()"></button>
-          </div>
+          </div> -->
         </div>
       </div>
     </form>

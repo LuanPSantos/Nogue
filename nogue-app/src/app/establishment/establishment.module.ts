@@ -18,6 +18,10 @@ import {
 } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
+import { StoreModule } from '@ngrx/store';
+import * as fromEstablishment from './reducers/establishment.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { EstablishmentEffects } from './effects/establishment.effects';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { CouponsListModule } from '../shared/component/coupons-list/coupons-list
     CommonModule,
     InputMaskModule,
     ReactiveFormsModule,
-    EstablishmentRoutingModule
+    EstablishmentRoutingModule,
+    StoreModule.forFeature('establishment', fromEstablishment.reducer),
+    EffectsModule.forFeature([EstablishmentEffects])
   ]
 })
 export class EstablishmentModule { }
