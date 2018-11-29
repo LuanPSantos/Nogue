@@ -15,7 +15,7 @@ import { SearchCouponFilter } from 'src/app/shared/model/search-coupon-filter.mo
 })
 export class CouponsHomeComponent implements OnInit {
 
-  coupons$: Observable<Coupon[]>;
+  public coupons$: Observable<Coupon[]>;
 
   constructor(
     private router: Router,
@@ -28,11 +28,11 @@ export class CouponsHomeComponent implements OnInit {
     this.coupons$ = this.store.select(selectCoupons);
   }
 
-  onCouponOpen(coupon) {
+  public onCouponOpen(coupon) {
     this.router.navigate(['/coupons-home/coupon', coupon.id]);
   }
 
-  onSearchCoupon(filter) {
+  public onSearchCoupon(filter) {
     this.store.dispatch(new LoadCoupons({
       cityId: filter.cityId,
       businessName: filter.businessName

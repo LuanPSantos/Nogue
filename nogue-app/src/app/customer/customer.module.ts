@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CouponsHomeComponent } from './coupons-home/coupons-home.component';
-import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { CouponDetailComponent } from './coupon-detail/coupon-detail.component';
 import {
   InputTextModule,
@@ -16,14 +15,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './effects/customer.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
+import { SearchEngineModule } from '../shared/component/search-engine/search-engine.module';
 
 @NgModule({
   declarations: [
     CouponsHomeComponent,
-    SearchEngineComponent,
     CouponDetailComponent
   ],
   imports: [
+    SearchEngineModule,
     CouponsListModule,
     InputTextModule,
     CardModule,

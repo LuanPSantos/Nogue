@@ -9,9 +9,9 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 export class CouponsListComponent implements OnInit {
 
   @Input()
-  coupons: Coupon[] = [];
+  public coupons: Coupon[] = [];
   @Input()
-  buttonLabel: string;
+  public buttonLabel: string;
 
   @Output()
   public buttonClick: EventEmitter<Coupon> = new EventEmitter();

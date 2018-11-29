@@ -4,11 +4,11 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-coupons-establishment',
-  templateUrl: './coupons-establishment.component.html',
-  styleUrls: ['./coupons-establishment.component.css']
+  selector: 'app-home-establishment',
+  templateUrl: './home-establishment.component.html',
+  styleUrls: ['./home-establishment.component.css']
 })
-export class CouponsEstablishmentComponent implements OnInit {
+export class HomeEstablishmentComponent implements OnInit {
 
   public activeCoupons$: Observable<Coupon[]> = of([
     {
@@ -38,23 +38,23 @@ export class CouponsEstablishmentComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCouponOpen(coupon) {
+  public onCouponOpen(coupon) {
     this.router.navigate(['establishment/coupon-update', coupon.id]);
   }
 
-  openCouponRegister() {
+  public openCouponRegister() {
     this.router.navigate(['establishment/coupon-register']);
   }
 
-  showOptions() {
+  public showOptions() {
     this.optionsVisible = true;
   }
 
-  openEstablishmentUpdate() {
+  public openEstablishmentUpdate() {
     this.router.navigate(['establishment/update']);
   }
 
-  logout() {
+  public logout() {
     this.router.navigate(['/']);
   }
 

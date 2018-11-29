@@ -12,8 +12,8 @@ import { State } from 'src/app/shared/model/state.model';
 })
 export class UpdateEstablishmentComponent implements OnInit {
 
-  updateForm: FormGroup;
-  states$: Observable<State[]> = of([
+  public updateForm: FormGroup;
+  public states$: Observable<State[]> = of([
     {
       id: 1,
       name: 'São Paulo',
@@ -29,7 +29,7 @@ export class UpdateEstablishmentComponent implements OnInit {
       initials: 'RJ'
     }
   ]);
-  cities$: Observable<City[]> = of([
+  public cities$: Observable<City[]> = of([
     {
       id: 1,
       name: 'Artur Nogueira',
@@ -58,11 +58,11 @@ export class UpdateEstablishmentComponent implements OnInit {
   ngOnInit() {
   }
 
-  update() {
+  public update() {
     console.log('Atualizando');
   }
 
-  delete() {
+  public delete() {
     console.log('Excluindo');
   }
 }

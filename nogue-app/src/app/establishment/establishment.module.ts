@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EstablishmentRoutingModule } from './establishment-routing.module';
 import { RegisterComponent } from './register/register.component';
-import { CouponsEstablishmentComponent } from './coupons-establishment/coupons-establishment.component';
+import { HomeEstablishmentComponent } from './home/home-establishment.component';
 import { CouponRegisterComponent } from './coupon-register/coupon-register.component';
 import { UpdateEstablishmentComponent } from './update-establishment/update-establishment.component';
 import { UpdateCouponComponent } from './update-coupon/update-coupon.component';
@@ -26,7 +26,7 @@ import { EstablishmentEffects } from './effects/establishment.effects';
 @NgModule({
   declarations: [
     RegisterComponent,
-    CouponsEstablishmentComponent,
+    HomeEstablishmentComponent,
     CouponRegisterComponent,
     UpdateEstablishmentComponent,
     UpdateCouponComponent

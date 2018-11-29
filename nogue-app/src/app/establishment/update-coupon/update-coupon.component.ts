@@ -8,12 +8,12 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class UpdateCouponComponent implements OnInit {
 
-  status = [
+  public status = [
     { label: 'Ativo', value: 'ACTIVE' },
     { label: 'Inativo', value: 'INACTIVE' }
   ];
 
-  couponForm: FormGroup;
+  public couponForm: FormGroup;
 
   constructor(fb: FormBuilder) {
     this.couponForm = fb.group({
@@ -30,11 +30,11 @@ export class UpdateCouponComponent implements OnInit {
   ngOnInit() {
   }
 
-  update() {
+  public update() {
     console.log(this.couponForm.value);
   }
 
-  delete() {
+  public delete() {
     console.log('Excluindo');
   }
 

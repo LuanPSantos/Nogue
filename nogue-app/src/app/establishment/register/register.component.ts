@@ -12,8 +12,8 @@ import { City } from 'src/app/shared/model/city.model';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
-  states$: Observable<State[]> = of([
+  public registerForm: FormGroup;
+  public states$: Observable<State[]> = of([
     {
       id: 1,
       name: 'São Paulo',
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       initials: 'RJ'
     }
   ]);
-  cities$: Observable<City[]> = of([
+  public cities$: Observable<City[]> = of([
     {
       id: 1,
       name: 'Artur Nogueira',
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register() {
+  public register() {
     this.router.navigate(['establishment/coupons']);
   }
 }

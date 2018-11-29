@@ -24,7 +24,7 @@ export class SearchEngineComponent implements OnInit {
   ngOnInit() {
   }
 
-  onKeyEnter() {
+  public onKeyEnter() {
     this.searchCoupon.emit({
       businessName: this.searchForm.get('businessName').value,
       cityId: 4749 // Artur Nogueria - hard coded porque a principio vai ser só em artur

@@ -8,12 +8,12 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class CouponRegisterComponent implements OnInit {
 
-  status = [
+  public status = [
     { label: 'Ativo', value: 'ACTIVE' },
     { label: 'Inativo', value: 'INACTIVE' }
   ];
 
-  couponForm: FormGroup;
+  public couponForm: FormGroup;
 
   constructor(fb: FormBuilder) {
     this.couponForm = fb.group({
@@ -29,7 +29,7 @@ export class CouponRegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  create() {
+  public create() {
     console.log(this.couponForm.value);
   }
 

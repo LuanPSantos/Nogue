@@ -14,9 +14,8 @@ import { selectCoupon } from '../reducers/customer.reducer';
 })
 export class CouponDetailComponent implements OnInit {
 
-  ACTIVE = 'ACTIVE';
-
-  coupon$: Observable<Coupon>;
+  private ACTIVE = 'ACTIVE';
+  public coupon$: Observable<Coupon>;
 
   constructor(
     private route: ActivatedRoute,

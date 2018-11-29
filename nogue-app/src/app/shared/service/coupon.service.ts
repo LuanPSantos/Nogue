@@ -9,7 +9,7 @@ const BASE_URL = environment.BASE_URL;
 @Injectable()
 export class CouponService {
 
-  COUPON_URL = BASE_URL + '/coupon';
+  private COUPON_URL = BASE_URL + '/coupon';
 
   constructor(private http: HttpClient) {
 
