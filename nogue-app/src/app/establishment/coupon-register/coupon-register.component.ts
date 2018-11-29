@@ -15,7 +15,7 @@ export class CouponRegisterComponent implements OnInit {
 
   couponForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(fb: FormBuilder) {
     this.couponForm = fb.group({
       department: new FormControl(''),
       amount: new FormControl(''),
