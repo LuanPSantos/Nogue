@@ -6,27 +6,29 @@
         <h3 class="label-login">Login</h3>
       </div>
 
-      <div class="ui-g-12  input-login">
-        <span class="ui-float-label">
-          <input id="input-username" type="text" class="full-width" pInputText>
-          <label for="input-username">Nome de usuário</label>
-        </span>
-      </div>
+      <form [formGroup]="loginForm">
+        <div class="ui-g-12  input-login">
+          <span class="ui-float-label">
+            <input id="input-username" type="text" class="full-width" pInputText formControlName="username">
+            <label for="input-username">Nome de usuário</label>
+          </span>
+        </div>
 
-      <div class="ui-g-12 input-login">
-        <span class="ui-float-label">
-          <input id="input-password" type="password" class="full-width" pInputText>
-          <label for="input-password">Senha</label>
-        </span>
-      </div>
+        <div class="ui-g-12 input-login">
+          <span class="ui-float-label">
+            <input id="input-password" type="password" class="full-width" pInputText formControlName="password">
+            <label for="input-password">Senha</label>
+          </span>
+        </div>
 
-      <div class="ui-g-6 button-login">
-        <button class="full-width ui-button-success" pButton label="Cadastrar-se" (click)="register()"></button>
-      </div>
+        <div class="ui-g-6 button-login">
+          <button class="full-width ui-button-success" pButton label="Cadastrar-se" (click)="register()"></button>
+        </div>
 
-      <div class="ui-g-6 button-login">
-        <button class="full-width ui-button-primary" pButton label="Entrar" (click)="login()"></button>
-      </div>
+        <div class="ui-g-6 button-login">
+          <button class="full-width ui-button-primary" pButton label="Entrar" (click)="login()"></button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

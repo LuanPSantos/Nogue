@@ -55,6 +55,7 @@ export class HomeEstablishmentComponent implements OnInit {
   }
 
   public logout() {
+    localStorage.removeItem('token');
     this.router.navigate(['/']);
   }
 

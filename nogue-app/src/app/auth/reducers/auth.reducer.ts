@@ -1,22 +1,24 @@
-import { Action } from '@ngrx/store';
+import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 import { AuthActions, AuthActionTypes } from '../actions/auth.actions';
 
-export interface State {
+// tslint:disable-next-line:no-empty-interface
+export interface AuthState {
 
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
 
 };
 
-export function reducer(state = initialState, action: AuthActions): State {
+export function reducer(state = initialState, action: AuthActions): AuthState {
   switch (action.type) {
 
-    case AuthActionTypes.LoadAuths:
+    case AuthActionTypes.LoginSucess:
       return state;
-
 
     default:
       return state;
   }
 }
+
+export const authSate = createFeatureSelector<AuthState>('auth');

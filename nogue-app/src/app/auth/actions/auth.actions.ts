@@ -1,11 +1,21 @@
 import { Action } from '@ngrx/store';
+import { EstablishmentCredentials } from 'src/app/shared/model/establishment-credentials.model';
 
 export enum AuthActionTypes {
-  LoadAuths = '[Auth] Load Auths'
+  Login = '[Auth] Login',
+  LoginSucess = '[Auth] LoginSucess'
 }
 
-export class LoadAuths implements Action {
-  readonly type = AuthActionTypes.LoadAuths;
+export class Login implements Action {
+  readonly type = AuthActionTypes.Login;
+
+  constructor(public payload: { credentials: EstablishmentCredentials}) { }
 }
 
-export type AuthActions = LoadAuths;
+export class LoginSucess implements Action {
+  readonly type = AuthActionTypes.LoginSucess;
+}
+
+export type AuthActions = Login
+  | LoginSucess
+;

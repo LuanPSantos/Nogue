@@ -12,6 +12,8 @@ import { AppEffects } from './app.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CouponService } from './shared/service/coupon.service';
+import { AuthService } from './shared/service/auth.service';
+import { RouteGuards } from './shared/service/route-guards.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,11 @@ import { CouponService } from './shared/service/coupon.service';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects])
   ],
-  providers: [CouponService],
+  providers: [
+    CouponService,
+    AuthService,
+    RouteGuards
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

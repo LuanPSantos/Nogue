@@ -5,13 +5,14 @@ import { RegisterComponent } from './register/register.component';
 import { CouponRegisterComponent } from './coupon-register/coupon-register.component';
 import { UpdateCouponComponent } from './update-coupon/update-coupon.component';
 import { UpdateEstablishmentComponent } from './update-establishment/update-establishment.component';
+import { RouteGuards } from '../shared/service/route-guards.service';
 
 const routes: Routes = [
-  { path: 'home', component: HomeEstablishmentComponent },
+  { path: 'home', component: HomeEstablishmentComponent, canActivate: [RouteGuards] },
   { path: 'register', component: RegisterComponent },
-  { path: 'coupon-register', component: CouponRegisterComponent },
-  { path: 'coupon-update/:id', component: UpdateCouponComponent },
-  { path: 'update', component: UpdateEstablishmentComponent },
+  { path: 'coupon-register', component: CouponRegisterComponent, canActivate: [RouteGuards] },
+  { path: 'coupon-update/:id', component: UpdateCouponComponent, canActivate: [RouteGuards] },
+  { path: 'update', component: UpdateEstablishmentComponent, canActivate: [RouteGuards] },
   { path: '**', redirectTo: 'home'}
 ];
 

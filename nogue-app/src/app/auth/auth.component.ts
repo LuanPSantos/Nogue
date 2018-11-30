@@ -14,7 +14,7 @@ export class AuthComponent implements OnInit {
   }
 
   public goToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/establishment/home']);
   }
 
   public goToCouponsHome() {

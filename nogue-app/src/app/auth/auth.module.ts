@@ -12,10 +12,12 @@ import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AuthComponent, LoginComponent],
   imports: [
+    ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
     CommonModule,
