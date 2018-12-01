@@ -43,7 +43,7 @@
       </div>
 
       <div class="ui-g-6 ui-g-offset-6 button-coupon">
-        <button class="full-width ui-button-success" pButton label="Criar" (click)="create()"></button>
+        <button class="full-width ui-button-success" pButton label="Criar" (click)="create()" [disabled]="!couponForm.valid"></button>
       </div>
     </div>
   </div>

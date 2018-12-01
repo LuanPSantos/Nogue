@@ -2,55 +2,58 @@ import { EstablishmentActions, EstablishmentActionTypes } from '../actions/estab
 import { Establishment } from 'src/app/shared/model/establishment.model';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Coupon } from 'src/app/shared/model/coupon.model';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export interface EstablishmentState {
+export interface EstablishmentState extends EntityState<Coupon> {
   establishment: Establishment;
-  activeCoupons: Coupon[];
-  inactiveCoupons: Coupon[];
 }
 
-export const initialState: EstablishmentState = {
-  establishment: null,
-  activeCoupons: [],
-  inactiveCoupons: []
-};
+export const adapter: EntityAdapter<Coupon> = createEntityAdapter<Coupon>();
+
+adapter.getInitialState({
+  establishment: null
+});
+
+export const initialState: EstablishmentState = adapter.getInitialState({
+  establishment: null
+});
 
 export function reducer(state = initialState, action: EstablishmentActions): EstablishmentState {
   switch (action.type) {
 
-    case EstablishmentActionTypes.LoadEstablishmentSucess:
+    case EstablishmentActionTypes.LoadEstablishmentSuccess:
       return {
         ...state,
         establishment: action.payload.establishment
       };
 
-    case EstablishmentActionTypes.LoadActiveCouponsSucess:
-      return {
-        ...state,
-        activeCoupons: action.payload.coupons
-      };
-
-    case EstablishmentActionTypes.LoadInactiveCouponsSucess:
-      return {
-        ...state,
-        inactiveCoupons: action.payload.coupons
-      };
+    case EstablishmentActionTypes.LoadCouponsSuccess:
+      return adapter.addAll(action.payload.coupons, state);
 
     default:
       return state;
   }
 }
 
+const {
+  selectEntities,
+  selectAll
+} = adapter.getSelectors();
+
 export const establishmentState = createFeatureSelector<EstablishmentState>('establishment');
+export const selectCouponsEntities = selectEntities;
+export const selectAllCoupons = selectAll;
 export const selectEstablishment = createSelector(
   establishmentState,
   (state) => state.establishment
 );
-export const selectActiveCoupons = createSelector(
+
+export const selectCoupons = createSelector(
   establishmentState,
-  (state) => state.activeCoupons
+  selectAllCoupons
 );
-export const selectInctiveCoupons = createSelector(
+
+export const selectCouponsById = createSelector(
   establishmentState,
-  (state) => state.inactiveCoupons
+  (state, props) => state.entities[props.id]
 );

@@ -9,14 +9,14 @@
 
       <div class="ui-g-12 input-coupon">
         <span class="ui-float-label">
-          <input id="input-department" type="text" class="full-width" pInputText formControlName="department">
+          <input id="input-department" type="text" class="full-width" pInputText formControlName="department" value=" ">
           <label for="input-department">Departamento</label>
         </span>
       </div>
 
       <div class="ui-g-12 input-coupon">
         <span class="ui-float-label">
-          <input id="input-discount" type="text" class="full-width" pInputText formControlName="discount">
+          <input id="input-discount" type="text" class="full-width" pInputText formControlName="discount" value=" ">
           <label for="input-discount">Desconto</label>
         </span>
       </div>
@@ -27,18 +27,19 @@
 
       <div class="ui-g-12 input-coupon">
         <span class="ui-float-label">
-          <input id="input-amount" type="text" class="full-width" pInputText formControlName="amount">
+          <input id="input-amount" type="text" class="full-width" pInputText formControlName="amount" value=" ">
           <label for="input-amount">Quantidade</label>
         </span>
       </div>
 
       <div class="ui-g-12 input-coupon">
-        <p-calendar [showTime]="true" inputStyleClass="full-width" [style]="{'width': '100%'}" formControlName="automaticDeactivationDate"
-          [touchUI]="true" placeholder="Dada de expiração"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" [showTime]="true" inputStyleClass="full-width" [style]="{'width': '100%'}"
+          formControlName="automaticDeactivationDate" [touchUI]="true" placeholder="Dada de expiração"></p-calendar>
       </div>
 
       <div class="ui-g-12 input-coupon">
-        <p-dropdown [options]="status" [style]="{'width': '100%'}" class="full-width" placeholder="Status" formControlName="status"></p-dropdown>
+        <p-dropdown [options]="status" [style]="{'width': '100%'}" class="full-width" placeholder="Status"
+          formControlName="status"></p-dropdown>
       </div>
 
       <div class="ui-g-6 button-coupon">

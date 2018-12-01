@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/shared/service/storage.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { LoadEstablishment, LoadActiveCoupons } from '../actions/establishment.actions';
-import { selectEstablishment, selectActiveCoupons, selectInctiveCoupons } from '../reducers/establishment.reducer';
+import { LoadEstablishment } from '../actions/establishment.actions';
+import { selectEstablishment, selectCoupons, selectCouponsById, } from '../reducers/establishment.reducer';
 import { Establishment } from 'src/app/shared/model/establishment.model';
+import { filter, map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-establishment',
@@ -31,8 +32,12 @@ export class HomeEstablishmentComponent implements OnInit {
     this.store.dispatch(new LoadEstablishment());
 
     this.establishment$ = this.store.select(selectEstablishment);
-    this.activeCoupons$ = this.store.select(selectActiveCoupons);
-    this.inactiveCoupons$ = this.store.select(selectInctiveCoupons);
+    this.activeCoupons$ = this.store.select(selectCoupons).pipe(
+      map((coupons) => coupons.filter(c => c.status === 'ACTIVE'))
+    );
+    this.inactiveCoupons$ = this.store.select(selectCoupons).pipe(
+      map((coupons) => coupons.filter(c => c.status === 'INACTIVE'))
+    );
   }
 
   public onCouponOpen(coupon) {

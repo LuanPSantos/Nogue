@@ -24,15 +24,19 @@ export class CouponService {
     return this.http.get<Coupon[]>(this.COUPON_URL, { params: params });
   }
 
-  public findAllByStatus(status: string): Observable<Coupon[]> {
-
-    const params: HttpParams = new HttpParams()
-      .set('status', status);
-
-    return this.http.get<Coupon[]>(`${this.COUPON_URL}/by-status`, { params: params });
+  public findAll(): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(`${this.COUPON_URL}/all`);
   }
 
   public findById(couponId: number): Observable<Coupon> {
     return this.http.get<Coupon>(`${this.COUPON_URL}/${couponId}`);
+  }
+
+  public save(coupon: Coupon): Observable<void> {
+    return this.http.post<void>(this.COUPON_URL, coupon);
+  }
+
+  public delete(couponId: string): Observable<void> {
+    return this.http.delete<void>(`${this.COUPON_URL}/${couponId}`);
   }
 }

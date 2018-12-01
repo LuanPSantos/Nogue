@@ -4,11 +4,11 @@ import {
   EstablishmentActionTypes,
   SaveEstablishment,
   LoadEstablishment,
-  LoadEstablishmentSucess,
-  LoadActiveCoupons,
-  LoadInactiveCoupons,
-  LoadActiveCouponsSucess,
-  LoadInactiveCouponsSucess
+  LoadEstablishmentSuccess,
+  SaveCoupon,
+  DeleteCoupon,
+  LoadCoupons,
+  LoadCouponsSuccess
 } from '../actions/establishment.actions';
 import { mergeMap, catchError, map, tap, merge } from 'rxjs/operators';
 import { EstablishmentService } from 'src/app/shared/service/establishment.service';
@@ -41,9 +41,8 @@ export class EstablishmentEffects {
   LoadEstablishment$ = this.actions$.pipe(
     ofType<LoadEstablishment>(EstablishmentActionTypes.LoadEstablishment),
     tap(() => this.establishmentService.findEstablishment().subscribe((establishment) => {
-      this.store.dispatch(new LoadEstablishmentSucess({ establishment }));
-      this.store.dispatch(new LoadActiveCoupons());
-      this.store.dispatch(new LoadInactiveCoupons());
+      this.store.dispatch(new LoadEstablishmentSuccess({ establishment }));
+      this.store.dispatch(new LoadCoupons());
     }, error => {
       console.log('Erro ao carregar o estabelecimento: ', error);
     }))
@@ -51,19 +50,29 @@ export class EstablishmentEffects {
 
   @Effect({ dispatch: false })
   LoadActiveCoupons$ = this.actions$.pipe(
-    ofType<LoadActiveCoupons>(EstablishmentActionTypes.LoadActiveCoupons),
-    tap(() => this.couponService.findAllByStatus('ACTIVE').subscribe((coupons) => {
-      this.store.dispatch(new LoadActiveCouponsSucess({ coupons }));
+    ofType<LoadCoupons>(EstablishmentActionTypes.LoadCoupons),
+    tap(() => this.couponService.findAll().subscribe((coupons) => {
+      this.store.dispatch(new LoadCouponsSuccess({ coupons }));
     }, error => {
       console.log('Erro ao carregar cupons ativos: ', error);
     }))
   );
 
   @Effect({ dispatch: false })
-  LoadInactiveCoupons$ = this.actions$.pipe(
-    ofType<LoadInactiveCoupons>(EstablishmentActionTypes.LoadInactiveCoupons),
-    tap(() => this.couponService.findAllByStatus('INACTIVE').subscribe((coupons) => {
-      this.store.dispatch(new LoadInactiveCouponsSucess({ coupons }));
+  saveCoupon$ = this.actions$.pipe(
+    ofType<SaveCoupon>(EstablishmentActionTypes.SaveCoupon),
+    tap((action) => this.couponService.save(action.payload.coupon).subscribe(() => {
+      this.router.navigate(['establishment/home']);
+    }, error => {
+      console.log('Erro ao carregar cupons inativos: ', error);
+    }))
+  );
+
+  @Effect({ dispatch: false })
+  deleteCoupon$ = this.actions$.pipe(
+    ofType<DeleteCoupon>(EstablishmentActionTypes.DeleteCoupon),
+    tap((action) => this.couponService.delete(action.payload.couponId).subscribe(() => {
+      this.router.navigate(['establishment/home']);
     }, error => {
       console.log('Erro ao carregar cupons inativos: ', error);
     }))

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { AuthActionTypes, Login, LoginSucess } from '../actions/auth.actions';
+import { AuthActionTypes, Login, LoginSuccess } from '../actions/auth.actions';
 import { mergeMap, map, tap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { Store } from '@ngrx/store';

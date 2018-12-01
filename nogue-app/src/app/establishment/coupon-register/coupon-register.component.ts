@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { SaveCoupon } from '../actions/establishment.actions';
+import { RouterState, ActivatedRoute } from '@angular/router';
+import { selectEstablishment } from '../reducers/establishment.reducer';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-coupon-register',
@@ -15,14 +21,26 @@ export class CouponRegisterComponent implements OnInit {
 
   public couponForm: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(
+    fb: FormBuilder,
+    private store: Store<AppState>
+  ) {
+
     this.couponForm = fb.group({
-      department: new FormControl(''),
-      amount: new FormControl(''),
+      department: new FormControl('', Validators.compose([
+        Validators.minLength(3),
+        Validators.required,
+        Validators.pattern('[a-zA-Z0-9-_@.]*')])
+      ),
+      amount: new FormControl('', Validators.compose([
+        Validators.min(0),
+        Validators.pattern('[0-9]*')])),
       unlimited: new FormControl(false),
-      automaticDeactivationDate: new FormControl(),
-      discount: new FormControl(''),
-      status: new FormControl('')
+      automaticDeactivationDate: new FormControl(null),
+      discount: new FormControl('', Validators.compose([
+        Validators.min(0),
+        Validators.pattern('[0-9]*')])),
+      status: new FormControl('', Validators.required)
     });
   }
 
@@ -30,7 +48,14 @@ export class CouponRegisterComponent implements OnInit {
   }
 
   public create() {
-    console.log(this.couponForm.value);
+    this.store.select(selectEstablishment).subscribe((establishment) => {
+      this.store.dispatch(new SaveCoupon({
+        coupon: {
+          ...this.couponForm.value,
+          establishment: establishment
+        }
+      }));
+    }).unsubscribe();
   }
 
 }

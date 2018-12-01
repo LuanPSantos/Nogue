@@ -21,7 +21,7 @@ export function reducer(state = initialState, action: CustomerActions): Custoemr
         coupons: action.payload.coupons
       };
 
-    case CustomerActionTypes.LoadCouponSucess:
+    case CustomerActionTypes.LoadCouponSuccess:
       return {
         ...state,
         coupon: action.payload.coupon

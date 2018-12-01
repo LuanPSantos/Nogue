@@ -3,9 +3,9 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 
 export enum CustomerActionTypes {
   LoadCoupons = '[Customer] Load Coupons',
-  LoadCouponsSuccess = '[Customer] Load Coupons Sucess',
+  LoadCouponsSuccess = '[Customer] Load Coupons Success',
   LoadCoupon = '[Customer] Load Coupon',
-  LoadCouponSucess = '[Customer] Load Coupon Sucess'
+  LoadCouponSuccess = '[Customer] Load Coupon Success'
 }
 
 export class LoadCoupons implements Action {
@@ -26,8 +26,8 @@ export class LoadCoupon implements Action {
   constructor(public payload: { couponId: number }) { }
 }
 
-export class LoadCouponSucess implements Action {
-  readonly type = CustomerActionTypes.LoadCouponSucess;
+export class LoadCouponSuccess implements Action {
+  readonly type = CustomerActionTypes.LoadCouponSuccess;
 
   constructor(public payload: { coupon: Coupon }) { }
 }
@@ -35,4 +35,4 @@ export class LoadCouponSucess implements Action {
 export type CustomerActions = LoadCoupons
   | LoadCouponsSuccess
   | LoadCoupon
-  | LoadCouponSucess;
+  | LoadCouponSuccess;

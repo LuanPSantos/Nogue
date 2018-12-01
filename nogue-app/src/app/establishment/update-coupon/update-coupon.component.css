@@ -1,10 +1,11 @@
 .input-coupon{
-  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 .label-coupon{
   text-align: center;
   color: #a6a6a6;
+  margin-bottom: 12px;
 }
 
 .button-coupon{

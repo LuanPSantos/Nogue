@@ -5,12 +5,12 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 
 export enum EstablishmentActionTypes {
   LoadEstablishment = '[Establishment] Load Load Establishment',
-  LoadEstablishmentSucess = '[Establishment] Load Establishment Sucess',
+  LoadEstablishmentSuccess = '[Establishment] Load Establishment Success',
   SaveEstablishment = '[Establishment] Register Establishment',
-  LoadActiveCoupons = '[Establishment] Load Active Coupons',
-  LoadActiveCouponsSucess = '[Establishment] Load Active Coupons Sucess',
-  LoadInactiveCoupons = '[Establishment] Load Inactive Coupons',
-  LoadInactiveCouponsSucess = '[Establishment] Load Inactive Coupons Sucess',
+  LoadCoupons = '[Establishment] Load Coupons',
+  LoadCouponsSuccess = '[Establishment] Load Coupons Success',
+  SaveCoupon = '[Establishment] Save Coupons',
+  DeleteCoupon = '[Establishment] Delete Coupon'
 }
 
 export class LoadEstablishment implements Action {
@@ -23,36 +23,37 @@ export class SaveEstablishment implements Action {
   constructor(public payload: { establishment: EstablishmentCredentials }) { }
 }
 
-export class LoadEstablishmentSucess implements Action {
-  readonly type = EstablishmentActionTypes.LoadEstablishmentSucess;
+export class LoadEstablishmentSuccess implements Action {
+  readonly type = EstablishmentActionTypes.LoadEstablishmentSuccess;
 
   constructor(public payload: { establishment: Establishment }) { }
 }
 
-export class LoadActiveCoupons implements Action {
-  readonly type = EstablishmentActionTypes.LoadActiveCoupons;
+export class LoadCoupons implements Action {
+  readonly type = EstablishmentActionTypes.LoadCoupons;
 }
 
-export class LoadActiveCouponsSucess implements Action {
-  readonly type = EstablishmentActionTypes.LoadActiveCouponsSucess;
+export class LoadCouponsSuccess implements Action {
+  readonly type = EstablishmentActionTypes.LoadCouponsSuccess;
 
   constructor(public payload: { coupons: Coupon[] }) { }
 }
 
-export class LoadInactiveCoupons implements Action {
-  readonly type = EstablishmentActionTypes.LoadInactiveCoupons;
+export class SaveCoupon implements Action {
+  readonly type = EstablishmentActionTypes.SaveCoupon;
+
+  constructor(public payload: { coupon: Coupon }) { }
 }
 
-export class LoadInactiveCouponsSucess implements Action {
-  readonly type = EstablishmentActionTypes.LoadInactiveCouponsSucess;
+export class DeleteCoupon implements Action {
+  readonly type = EstablishmentActionTypes.DeleteCoupon;
 
-  constructor(public payload: { coupons: Coupon[] }) { }
+  constructor(public payload: { couponId: string }) { }
 }
 
 export type EstablishmentActions = LoadEstablishment
   | SaveEstablishment
-  | LoadEstablishmentSucess
-  | LoadActiveCoupons
-  | LoadActiveCouponsSucess
-  | LoadInactiveCoupons
-  | LoadInactiveCouponsSucess;
+  | LoadEstablishmentSuccess
+  | LoadCoupons
+  | LoadCouponsSuccess
+  | SaveCoupon;
