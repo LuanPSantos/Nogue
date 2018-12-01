@@ -45,7 +45,7 @@
 
       <div class="ui-g-4  input-register">
         <p-dropdown [options]="states$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Estado"
-          optionLabel="initials" [filter]="true" formControlName="state"></p-dropdown>
+          optionLabel="initials" [filter]="true"></p-dropdown>
       </div>
 
       <div class="ui-g-8  input-register">
@@ -54,7 +54,7 @@
       </div>
 
       <div class="ui-g-6 ui-g-offset-6 button-register">
-        <button class="full-width ui-button-success" pButton label="Cadastrar-se" (click)="register()"></button>
+        <button class="full-width ui-button-success" pButton label="Cadastrar-se" (click)="register()" [disabled]="!registerForm.valid"></button>
       </div>
     </div>
   </div>

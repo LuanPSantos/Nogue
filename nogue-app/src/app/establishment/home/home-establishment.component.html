@@ -3,7 +3,7 @@
 
     <div class="ui-g">
       <div class="ui-g-10">
-        <label class="establishment-name">Empresa Teste</label>
+        <label class="establishment-name">{{(establishment$ | async)?.businessName}}</label>
       </div>
       <div class="ui-g-2 ui-g-nopad">
         <i class="pi pi-bars establishment-more-options" (click)="showOptions()"></i>

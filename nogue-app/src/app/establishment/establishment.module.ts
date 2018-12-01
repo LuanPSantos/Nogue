@@ -22,6 +22,8 @@ import { StoreModule } from '@ngrx/store';
 import * as fromEstablishment from './reducers/establishment.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { EstablishmentEffects } from './effects/establishment.effects';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,13 @@ import { EstablishmentEffects } from './effects/establishment.effects';
     EstablishmentRoutingModule,
     StoreModule.forFeature('establishment', fromEstablishment.reducer),
     EffectsModule.forFeature([EstablishmentEffects])
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ]
 })
 export class EstablishmentModule { }

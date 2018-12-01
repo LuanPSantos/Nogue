@@ -10,10 +10,13 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CouponService } from './shared/service/coupon.service';
 import { AuthService } from './shared/service/auth.service';
 import { RouteGuards } from './shared/service/route-guards.service';
+import { StorageService } from './shared/service/storage.service';
+import { EstablishmentService } from './shared/service/establishment.service';
+import { TokenInterceptor } from './auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,14 @@ import { RouteGuards } from './shared/service/route-guards.service';
   providers: [
     CouponService,
     AuthService,
-    RouteGuards
+    RouteGuards,
+    StorageService,
+    EstablishmentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

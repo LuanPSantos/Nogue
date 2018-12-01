@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/service/storage.service';
 
 @Injectable()
 export class AuthEffects {
@@ -14,29 +15,24 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   login$ = this.actions$.pipe(
     ofType<Login>(AuthActionTypes.Login),
-    mergeMap((action) =>
-      this.authService.login(action.payload.credentials).pipe(
-        catchError((error) => {
-          console.log('Erro ao logar: ', error);
-          return of(<any>{});
-        })
-      )
-    ),
-    map((response) => {
-      if (response.headers) {
-        return response.headers.get('Authorization');
-      }
+    tap((action) =>
+      this.authService.login(action.payload.credentials).subscribe((response) => {
 
-      return '';
-    }),
-    tap((token) => {
-      localStorage.setItem('token', token);
-      this.router.navigate(['/establishment/home']);
-    }));
+        if (response.headers && response.headers.get('Authorization')) {
+          const token = response.headers.get('Authorization');
+          this.storageService.setToken(token);
+          this.router.navigate(['/establishment/home']);
+        }
+
+      }, error => {
+        console.log('Erro ao logar: ', error);
+      })
+    ));
 
   constructor(
     private actions$: Actions,
     private authService: AuthService,
     private store: Store<AppState>,
-    private router: Router) { }
+    private router: Router,
+    private storageService: StorageService) { }
 }

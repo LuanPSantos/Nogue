@@ -26,7 +26,7 @@
         </div>
 
         <div class="ui-g-6 button-login">
-          <button class="full-width ui-button-primary" pButton label="Entrar" (click)="login()"></button>
+          <button class="full-width ui-button-primary" pButton label="Entrar" (click)="login()" [disabled]="!this.loginForm.valid"></button>
         </div>
       </form>
     </div>

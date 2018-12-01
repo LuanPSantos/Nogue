@@ -41,3 +41,7 @@
 .menu-item{
   margin-bottom: 20px;
 }
+
+.menu-item:hover{
+  cursor: pointer;
+}
