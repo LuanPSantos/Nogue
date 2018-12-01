@@ -15,13 +15,21 @@ export class CouponService {
 
   }
 
-  public findByCityAndBusinessName(cityId: number, businessName: string): Observable<Coupon[]> {
+  public findAllForCustomers(cityId: number, businessName: string): Observable<Coupon[]> {
 
     const params: HttpParams = new HttpParams()
       .set('cityId', cityId.toString())
       .set('businessName', businessName);
 
     return this.http.get<Coupon[]>(this.COUPON_URL, { params: params });
+  }
+
+  public findAllByStatus(status: string): Observable<Coupon[]> {
+
+    const params: HttpParams = new HttpParams()
+      .set('status', status);
+
+    return this.http.get<Coupon[]>(`${this.COUPON_URL}/by-status`, { params: params });
   }
 
   public findById(couponId: number): Observable<Coupon> {

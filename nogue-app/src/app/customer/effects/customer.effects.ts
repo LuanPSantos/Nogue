@@ -13,7 +13,7 @@ export class CustomerEffects {
   loadCoupons$ = this.actions$.pipe(
     ofType<LoadCoupons>(CustomerActionTypes.LoadCoupons),
     mergeMap((action: LoadCoupons) =>
-      this.couponService.findByCityAndBusinessName(action.payload.cityId, action.payload.businessName)
+      this.couponService.findAllForCustomers(action.payload.cityId, action.payload.businessName)
     ),
     tap((coupons) => this.store.dispatch(new LoadCouponsSuccess({ coupons })))
   );
