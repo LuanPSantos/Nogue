@@ -16,11 +16,19 @@ export class EstablishmentService {
 
   }
 
-  public save(establishment: EstablishmentCredentials): Observable<void> {
+  public register(establishment: EstablishmentCredentials): Observable<void> {
     return this.http.post<void>(`${this.ESTABLISHMENT_URL}`, establishment);
+  }
+
+  public update(establishment: Establishment): Observable<void> {
+    return this.http.put<void>(`${this.ESTABLISHMENT_URL}`, establishment);
   }
 
   public findEstablishment(): Observable<Establishment> {
     return this.http.get<Establishment>(`${this.ESTABLISHMENT_URL}`);
+  }
+
+  public delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.ESTABLISHMENT_URL}/${id}`);
   }
 }

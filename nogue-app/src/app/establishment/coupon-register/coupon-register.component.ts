@@ -29,8 +29,7 @@ export class CouponRegisterComponent implements OnInit {
     this.couponForm = fb.group({
       department: new FormControl('', Validators.compose([
         Validators.minLength(3),
-        Validators.required,
-        Validators.pattern('[a-zA-Z0-9-_@.]*')])
+        Validators.required])
       ),
       amount: new FormControl('', Validators.compose([
         Validators.min(0),

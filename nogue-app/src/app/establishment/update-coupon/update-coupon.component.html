@@ -46,7 +46,7 @@
         <button class="full-width ui-button-danger" pButton label="Excluir o cupom" (click)="delete()"></button>
       </div>
       <div class="ui-g-6 button-coupon">
-        <button class="full-width ui-button-success" pButton label="Salvar" (click)="update()"></button>
+        <button class="full-width ui-button-success" pButton label="Salvar" (click)="update()" [disabled]="!couponForm.valid"></button>
       </div>
     </div>
   </div>

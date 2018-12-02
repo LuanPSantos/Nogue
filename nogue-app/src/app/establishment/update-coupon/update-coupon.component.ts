@@ -5,9 +5,7 @@ import { AppState } from 'src/app/reducers';
 import { DeleteCoupon, SaveCoupon } from '../actions/establishment.actions';
 import { ActivatedRoute } from '@angular/router';
 import { selectCouponsById } from '../reducers/establishment.reducer';
-import { Observable } from 'rxjs';
 import { Coupon } from 'src/app/shared/model/coupon.model';
-import { mapTo } from 'rxjs/operators';
 
 @Component({
   selector: 'app-update-coupon',
@@ -32,8 +30,7 @@ export class UpdateCouponComponent implements OnInit {
       id: new FormControl(null),
       department: new FormControl('', Validators.compose([
         Validators.minLength(3),
-        Validators.required,
-        Validators.pattern('[a-zA-Z0-9-_@.]*')])
+        Validators.required])
       ),
       amount: new FormControl('', Validators.compose([
         Validators.min(0),

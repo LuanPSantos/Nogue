@@ -6,7 +6,8 @@ import { State } from 'src/app/shared/model/state.model';
 import { City } from 'src/app/shared/model/city.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { SaveEstablishment } from '../actions/establishment.actions';
+import { RegisterEstablishment, LoadStates, LoadCities } from '../actions/establishment.actions';
+import { selectStates, selectCities } from '../reducers/establishment.reducer';
 
 @Component({
   selector: 'app-register',
@@ -16,22 +17,7 @@ import { SaveEstablishment } from '../actions/establishment.actions';
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
-  public states$: Observable<State[]> = of([
-    {
-      id: 1,
-      name: 'São Paulo',
-      initials: 'SP'
-    },
-    {
-      id: 1,
-      name: 'Minas Gerais',
-      initials: 'MG'
-    }, {
-      id: 1,
-      name: 'Rio de Janeiro',
-      initials: 'RJ'
-    }
-  ]);
+  public states$: Observable<State[]>;
   public cities$: Observable<City[]> = of([
     {
       id: 1,
@@ -68,15 +54,28 @@ export class RegisterComponent implements OnInit {
         Validators.pattern('[a-z0-9-_@.]*')])),
 
       cnpj: new FormControl('', Validators.required),
-      city: new FormControl(null, Validators.required)
+      city: new FormControl(null, Validators.required),
+      state: new FormControl(null)
     });
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadStates());
+
+    this.states$ = this.store.select(selectStates);
+    this.cities$ = this.store.select(selectCities);
+
+    this.stateChangesListener();
+  }
+
+  stateChangesListener() {
+    this.registerForm.get('state').valueChanges.subscribe((state) => {
+      this.store.dispatch(new LoadCities({ stateId: state.id }));
+    });
   }
 
   public register() {
-    this.store.dispatch(new SaveEstablishment({
+    this.store.dispatch(new RegisterEstablishment({
       establishment: {
         username: this.registerForm.get('username').value,
         password: this.registerForm.get('password').value,

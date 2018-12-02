@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/shared/model/city.model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { State } from 'src/app/shared/model/state.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { selectEstablishment } from '../reducers/establishment.reducer';
-import { Establishment } from 'src/app/shared/model/establishment.model';
-import { SaveEstablishment } from '../actions/establishment.actions';
+import { selectEstablishment, selectStates, selectCities } from '../reducers/establishment.reducer';
+import { UpdateEstablishment, DeleteEstablishment, LoadStates, LoadCities } from '../actions/establishment.actions';
 
 @Component({
   selector: 'app-update-establishment',
@@ -18,35 +16,8 @@ import { SaveEstablishment } from '../actions/establishment.actions';
 export class UpdateEstablishmentComponent implements OnInit {
 
   public updateForm: FormGroup;
-  public states$: Observable<State[]> = of([
-    {
-      id: 26,
-      name: 'São Paulo',
-      initials: 'SP'
-    },
-    {
-      id: 1,
-      name: 'Minas Gerais',
-      initials: 'MG'
-    }, {
-      id: 1,
-      name: 'Rio de Janeiro',
-      initials: 'RJ'
-    }
-  ]);
-  public cities$: Observable<City[]> = of([
-    {
-      id: 4749,
-      name: 'Artur Nogueira',
-    },
-    {
-      id: 1,
-      name: 'Limeira',
-    }, {
-      id: 1,
-      name: 'Campinas',
-    }
-  ]);
+  public states$: Observable<State[]>;
+  public cities$: Observable<City[]>;
 
   constructor(fb: FormBuilder, private store: Store<AppState>) {
     this.updateForm = fb.group({
@@ -83,13 +54,34 @@ export class UpdateEstablishmentComponent implements OnInit {
         this.updateForm.get('state').setValue(stateFound);
       });
     });
+
+    this.store.dispatch(new LoadStates());
+
+    this.states$ = this.store.select(selectStates);
+    this.cities$ = this.store.select(selectCities);
+
+    this.stateChangesListener();
+  }
+
+  private stateChangesListener() {
+    this.updateForm.get('state').valueChanges.subscribe((state) => {
+      this.store.dispatch(new LoadCities({ stateId: state.id }));
+    });
   }
 
   public update() {
-
+    this.store.dispatch(new UpdateEstablishment({
+      establishment: {
+        businessName: this.updateForm.get('businessName').value,
+        email: this.updateForm.get('email').value,
+        cnpj: this.updateForm.get('cnpj').value,
+        city: this.updateForm.get('city').value,
+        id: this.updateForm.get('id').value
+      }
+    }));
   }
 
   public delete() {
-    console.log('Excluindo');
+    this.store.dispatch(new DeleteEstablishment({ establishmentId: this.updateForm.get('id').value }));
   }
 }

@@ -2,30 +2,36 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   EstablishmentActionTypes,
-  SaveEstablishment,
   LoadEstablishment,
   LoadEstablishmentSuccess,
   SaveCoupon,
   DeleteCoupon,
   LoadCoupons,
-  LoadCouponsSuccess
+  LoadCouponsSuccess,
+  RegisterEstablishment,
+  UpdateEstablishment,
+  DeleteEstablishment,
+  LoadStates,
+  LoadStatesSuccess,
+  LoadCities,
+  LoadCitiesSuccess
 } from '../actions/establishment.actions';
-import { mergeMap, catchError, map, tap, merge } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { EstablishmentService } from 'src/app/shared/service/establishment.service';
-import { of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { Login } from 'src/app/auth/actions/auth.actions';
 import { CouponService } from 'src/app/shared/service/coupon.service';
+import { LocalizationService } from 'src/app/shared/service/localizations.service';
 
 @Injectable()
 export class EstablishmentEffects {
 
   @Effect({ dispatch: false })
   registerEstablishment$ = this.actions$.pipe(
-    ofType<SaveEstablishment>(EstablishmentActionTypes.SaveEstablishment),
-    tap((action) => this.establishmentService.save(action.payload.establishment).subscribe(() => {
+    ofType<RegisterEstablishment>(EstablishmentActionTypes.RegisterEstablishment),
+    tap((action) => this.establishmentService.register(action.payload.establishment).subscribe(() => {
       this.store.dispatch(new Login({
         credentials: {
           username: action.payload.establishment.username,
@@ -38,7 +44,7 @@ export class EstablishmentEffects {
     ));
 
   @Effect({ dispatch: false })
-  LoadEstablishment$ = this.actions$.pipe(
+  loadEstablishment$ = this.actions$.pipe(
     ofType<LoadEstablishment>(EstablishmentActionTypes.LoadEstablishment),
     tap(() => this.establishmentService.findEstablishment().subscribe((establishment) => {
       this.store.dispatch(new LoadEstablishmentSuccess({ establishment }));
@@ -49,12 +55,34 @@ export class EstablishmentEffects {
   );
 
   @Effect({ dispatch: false })
-  LoadActiveCoupons$ = this.actions$.pipe(
+  updateEstablishment$ = this.actions$.pipe(
+    ofType<UpdateEstablishment>(EstablishmentActionTypes.UpdateEstablishment),
+    tap((action) => this.establishmentService.update(action.payload.establishment).subscribe(() => {
+      // this.router.navigate(['establishment/home']);
+    }, error => {
+      console.log('Erro ao atualizar o estabelecimento: ', error);
+    }))
+  );
+
+  @Effect({ dispatch: false })
+  deleteEstablishment$ = this.actions$.pipe(
+    ofType<DeleteEstablishment>(EstablishmentActionTypes.DeleteEstablishment),
+    tap((action) => this.establishmentService.delete(action.payload.establishmentId).subscribe(() => {
+      this.router.navigate(['/']);
+    }, error => {
+      console.log('Erro ao excluir o estabelecimento: ', error);
+    }))
+  );
+
+  // == Coupons
+
+  @Effect({ dispatch: false })
+  loadCoupons$ = this.actions$.pipe(
     ofType<LoadCoupons>(EstablishmentActionTypes.LoadCoupons),
     tap(() => this.couponService.findAll().subscribe((coupons) => {
       this.store.dispatch(new LoadCouponsSuccess({ coupons }));
     }, error => {
-      console.log('Erro ao carregar cupons ativos: ', error);
+      console.log('Erro ao carregar os cupons: ', error);
     }))
   );
 
@@ -64,7 +92,7 @@ export class EstablishmentEffects {
     tap((action) => this.couponService.save(action.payload.coupon).subscribe(() => {
       this.router.navigate(['establishment/home']);
     }, error => {
-      console.log('Erro ao carregar cupons inativos: ', error);
+      console.log('Erro ao salvar o cupom: ', error);
     }))
   );
 
@@ -74,7 +102,29 @@ export class EstablishmentEffects {
     tap((action) => this.couponService.delete(action.payload.couponId).subscribe(() => {
       this.router.navigate(['establishment/home']);
     }, error => {
-      console.log('Erro ao carregar cupons inativos: ', error);
+      console.log('Erro ao excluir o cupom: ', error);
+    }))
+  );
+
+  // == Localization
+
+  @Effect({ dispatch: false })
+  loadStates$ = this.actions$.pipe(
+    ofType<LoadStates>(EstablishmentActionTypes.LoadStates),
+    tap(() => this.localizationService.loadStates().subscribe((states) => {
+      this.store.dispatch(new LoadStatesSuccess({ states }));
+    }, error => {
+      console.log('Erro ao carregar os estados: ', error);
+    }))
+  );
+
+  @Effect({ dispatch: false })
+  loadCities$ = this.actions$.pipe(
+    ofType<LoadCities>(EstablishmentActionTypes.LoadCities),
+    tap((action) => this.localizationService.loadCities(action.payload.stateId).subscribe((cities) => {
+      this.store.dispatch(new LoadCitiesSuccess({ cities }));
+    }, error => {
+      console.log('Erro ao carregar as cidades: ', error);
     }))
   );
 
@@ -83,6 +133,7 @@ export class EstablishmentEffects {
     private establishmentService: EstablishmentService,
     private couponService: CouponService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private localizationService: LocalizationService
   ) { }
 }

@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { LoadCoupons } from '../actions/customer.actions';
-import { selectCoupons } from '../reducers/customer.reducer';
-import { SearchCouponFilter } from 'src/app/shared/model/search-coupon-filter.model';
+import { selectAllCoupons } from '../reducers/customer.reducer';
 
 @Component({
   selector: 'app-coupons-home',
@@ -25,7 +24,12 @@ export class CouponsHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.coupons$ = this.store.select(selectCoupons);
+    this.coupons$ = this.store.select(selectAllCoupons);
+
+    this.store.dispatch(new LoadCoupons({
+      cityId: 4749,
+      businessName: ''
+    }));
   }
 
   public onCouponOpen(coupon) {

@@ -17,6 +17,7 @@ import { RouteGuards } from './shared/service/route-guards.service';
 import { StorageService } from './shared/service/storage.service';
 import { EstablishmentService } from './shared/service/establishment.service';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { LocalizationService } from './shared/service/localizations.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
     RouteGuards,
     StorageService,
     EstablishmentService,
+    LocalizationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
