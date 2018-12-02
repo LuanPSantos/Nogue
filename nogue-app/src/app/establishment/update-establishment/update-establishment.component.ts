@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { City } from 'src/app/shared/model/city.model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { State } from 'src/app/shared/model/state.model';
 import { Store } from '@ngrx/store';
@@ -13,11 +13,15 @@ import { UpdateEstablishment, DeleteEstablishment, LoadStates, LoadCities } from
   templateUrl: './update-establishment.component.html',
   styleUrls: ['./update-establishment.component.css']
 })
-export class UpdateEstablishmentComponent implements OnInit {
+export class UpdateEstablishmentComponent implements OnInit, OnDestroy {
 
   public updateForm: FormGroup;
   public states$: Observable<State[]> = of([]);
   public cities$: Observable<City[]> = of([]);
+
+  private statesSubiscription: Subscription;
+  private citiesSubiscription: Subscription;
+  private establishmentSubscription: Subscription;
 
   constructor(fb: FormBuilder, private store: Store<AppState>) {
     this.updateForm = fb.group({
@@ -38,35 +42,41 @@ export class UpdateEstablishmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(selectEstablishment).subscribe((establishment) => {
+    this.states$ = this.store.select(selectStates);
+    this.cities$ = this.store.select(selectCities);
+
+    this.establishmentSubscription = this.store.select(selectEstablishment).subscribe((establishment) => {
       this.updateForm.get('businessName').setValue(establishment.businessName);
       this.updateForm.get('cnpj').setValue(establishment.cnpj);
       this.updateForm.get('email').setValue(establishment.email);
       this.updateForm.get('id').setValue(establishment.id);
 
-      this.cities$.subscribe((cities) => {
-        const cityFound = cities.find(city => establishment.city.id === city.id);
-        this.updateForm.get('city').setValue(cityFound);
-      });
-
-      this.states$.subscribe((states) => {
+      this.statesSubiscription = this.states$.subscribe((states) => {
         const stateFound = states.find(state => establishment.city.state.id === state.id);
         this.updateForm.get('state').setValue(stateFound);
+
+        if (stateFound) {
+          this.store.dispatch(new LoadCities({ stateId: stateFound.id.toString() }));
+        }
+      });
+
+      this.citiesSubiscription = this.cities$.subscribe((cities) => {
+        const cityFound = cities.find(city => establishment.city.id === city.id);
+        this.updateForm.get('city').setValue(cityFound);
       });
     });
 
     this.store.dispatch(new LoadStates());
-
-    this.states$ = this.store.select(selectStates);
-    this.cities$ = this.store.select(selectCities);
-
-    this.stateChangesListener();
   }
 
-  private stateChangesListener() {
-    this.updateForm.get('state').valueChanges.subscribe((state) => {
-      this.store.dispatch(new LoadCities({ stateId: state.id }));
-    });
+  ngOnDestroy(): void {
+    this.statesSubiscription.unsubscribe();
+    this.citiesSubiscription.unsubscribe();
+    this.establishmentSubscription.unsubscribe();
+  }
+
+  public onStateChange(event) {
+    this.store.dispatch(new LoadCities({ stateId: event.value.id }));
   }
 
   public update() {

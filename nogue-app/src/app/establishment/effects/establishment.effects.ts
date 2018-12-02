@@ -24,6 +24,7 @@ import { AppState } from 'src/app/reducers';
 import { Login } from 'src/app/auth/actions/auth.actions';
 import { CouponService } from 'src/app/shared/service/coupon.service';
 import { LocalizationService } from 'src/app/shared/service/localizations.service';
+import { StorageService } from 'src/app/shared/service/storage.service';
 
 @Injectable()
 export class EstablishmentEffects {
@@ -68,6 +69,7 @@ export class EstablishmentEffects {
   deleteEstablishment$ = this.actions$.pipe(
     ofType<DeleteEstablishment>(EstablishmentActionTypes.DeleteEstablishment),
     tap((action) => this.establishmentService.delete(action.payload.establishmentId).subscribe(() => {
+      this.storageService.removeToken();
       this.router.navigate(['/']);
     }, error => {
       console.log('Erro ao excluir o estabelecimento: ', error);
@@ -134,6 +136,7 @@ export class EstablishmentEffects {
     private couponService: CouponService,
     private router: Router,
     private store: Store<AppState>,
-    private localizationService: LocalizationService
+    private localizationService: LocalizationService,
+    private storageService: StorageService
   ) { }
 }

@@ -44,7 +44,7 @@
 
       <div class="ui-g-4  input-update">
         <p-dropdown [options]="states$ | async" [style]="{'width': '100%'}" class="full-width" placeholder="Estado"
-          optionLabel="initials" [filter]="true" formControlName="state"></p-dropdown>
+          optionLabel="initials" [filter]="true" formControlName="state" (onChange)="onStateChange($event)"></p-dropdown>
       </div>
 
       <div class="ui-g-8  input-update">

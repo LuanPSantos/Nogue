@@ -51,14 +51,10 @@ export class RegisterComponent implements OnInit {
 
     this.states$ = this.store.select(selectStates);
     this.cities$ = this.store.select(selectCities);
-
-    this.stateChangesListener();
   }
 
-  stateChangesListener() {
-    this.registerForm.get('state').valueChanges.subscribe((state) => {
-      this.store.dispatch(new LoadCities({ stateId: state.id }));
-    });
+  public onStateChange(event) {
+    this.store.dispatch(new LoadCities({ stateId: event.value.id }));
   }
 
   public register() {
