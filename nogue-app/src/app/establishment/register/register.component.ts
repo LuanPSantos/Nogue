@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { State } from 'src/app/shared/model/state.model';
 import { City } from 'src/app/shared/model/city.model';
@@ -17,20 +16,8 @@ import { selectStates, selectCities } from '../reducers/establishment.reducer';
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
-  public states$: Observable<State[]>;
-  public cities$: Observable<City[]> = of([
-    {
-      id: 1,
-      name: 'Artur Nogueira',
-    },
-    {
-      id: 1,
-      name: 'Limeira',
-    }, {
-      id: 1,
-      name: 'Campinas',
-    }
-  ]);
+  public states$: Observable<State[]> = of([]);
+  public cities$: Observable<City[]> = of([]);
 
   constructor(fb: FormBuilder, private store: Store<AppState>) {
     this.registerForm = fb.group({

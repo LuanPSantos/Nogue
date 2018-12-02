@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/shared/model/city.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { State } from 'src/app/shared/model/state.model';
 import { Store } from '@ngrx/store';
@@ -16,8 +16,8 @@ import { UpdateEstablishment, DeleteEstablishment, LoadStates, LoadCities } from
 export class UpdateEstablishmentComponent implements OnInit {
 
   public updateForm: FormGroup;
-  public states$: Observable<State[]>;
-  public cities$: Observable<City[]>;
+  public states$: Observable<State[]> = of([]);
+  public cities$: Observable<City[]> = of([]);
 
   constructor(fb: FormBuilder, private store: Store<AppState>) {
     this.updateForm = fb.group({
