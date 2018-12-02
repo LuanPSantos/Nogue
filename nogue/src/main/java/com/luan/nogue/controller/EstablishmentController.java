@@ -4,6 +4,7 @@ import com.luan.nogue.entity.Establishment;
 import com.luan.nogue.entity.EstablishmentCredentials;
 import com.luan.nogue.service.EstablishmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,8 +29,15 @@ public class EstablishmentController {
         establishmentService.updateEstablishmentCredentials(establishmentCredentials);
     }
 
-    @GetMapping(path = "{establishmentId}")
-    public Establishment findById(@PathVariable("establishmentId") Long establishmentId){
-        return establishmentService.findById(establishmentId);
+    @GetMapping() //Não passo nenhum parametro, pois a identificacao do establishment vem do token que é
+    //interceptado pelos filtros e adicionado ao contexto de segurança do spring
+    public Establishment findByUsername(Authentication authentication){
+        String username = (String) authentication.getPrincipal();
+        return establishmentService.findByUsername(username);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id){
+        this.establishmentService.delete(id);
     }
 }

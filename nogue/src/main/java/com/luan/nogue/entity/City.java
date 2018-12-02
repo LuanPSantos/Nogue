@@ -15,8 +15,14 @@ public class City implements Serializable {
     private String name;
 
     @ManyToOne
-    @JsonIgnore
     private State state;
+
+    public City(Long id) {
+        this.id = id;
+    }
+
+    public City() {
+    }
 
     public Long getId() {
         return id;

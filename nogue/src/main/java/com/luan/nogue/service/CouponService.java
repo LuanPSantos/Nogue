@@ -23,39 +23,49 @@ public class CouponService {
     @Autowired
     private CityRepository cityRepository;
 
-    public void save(Coupon coupon){
+    public void save(Coupon coupon) {
         couponRepository.save(coupon);
     }
 
-    public Coupon findById(Long couponId){
+    public Coupon findById(Long couponId) {
         Optional<Coupon> couponOptional = couponRepository.findById(couponId);
 
         return couponOptional.orElse(null);
     }
 
-    public List<Coupon> findByCityAndBusinessName(Long cityId, String businessName){
-        Optional<City> cityOptional = cityRepository.findById(cityId);
-
+    public List<Coupon> findAllForCustomers(Long cityId, String businessName) {
         List<Coupon> coupons = new ArrayList<>();
-        cityOptional.ifPresent((city ->
-                coupons.addAll(
-                        couponRepository
-                                .findByCityAndBusinessName(city, businessName, Status.ACTIVE)
-                                .orElse(new ArrayList<>()))
-                )
-        );
+        coupons.addAll(
+                couponRepository
+                        .findAllForCustomers(new City(cityId), businessName, Status.ACTIVE)
+                        .orElse(new ArrayList<>()));
+
 
         return coupons;
     }
 
+    public List<Coupon> findAllByEstablishmentUsernameAndStatus(String username) {
+        List<Coupon> coupons = new ArrayList<>();
+        coupons.addAll(
+                couponRepository
+                        .findAllByEstablishmentUsername(username)
+                        .orElse(new ArrayList<>()));
+
+        return coupons;
+    }
+
+    public void delete(Long id){
+        couponRepository.deleteById(id);
+    }
+
     @Scheduled(cron = "0 0 * * * *")
     @Transactional
-    public void desactiveCoupons(){
+    public void desactiveCoupons() {
 
         Optional<List<Coupon>> couponsOptional = couponRepository.findCouponsToDeactivation(LocalDateTime.now());
 
         couponsOptional.ifPresent(coupons ->
-                    coupons.forEach(coupon -> coupon.setStatus(Status.INACTIVE))
-                );
+                coupons.forEach(coupon -> coupon.setStatus(Status.INACTIVE))
+        );
     }
 }

@@ -5,6 +5,7 @@ import com.luan.nogue.entity.City;
 import com.luan.nogue.entity.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,14 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
             "and city = :city " +
             "and coupon.status = :status"
     )
-    Optional<List<Coupon>> findByCityAndBusinessName(City city, String businessName, Status status);
+    Optional<List<Coupon>> findAllForCustomers(City city, String businessName, Status status);
+
+    @Query("Select coupon from Coupon coupon " +
+            "join coupon.establishment establishment " +
+            "join establishment.establishmentCredentials credentials " +
+            "where credentials.username = :username "
+    )
+    Optional<List<Coupon>> findAllByEstablishmentUsername(String username);
 
     @Query("Select coupon from Coupon coupon " +
             "where coupon.automaticDeactivationDate <= :date"

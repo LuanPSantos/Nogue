@@ -18,7 +18,7 @@ public class Establishment implements Serializable, UserDetails {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "establishment")
+    @OneToOne(mappedBy = "establishment", orphanRemoval = true)
     private EstablishmentCredentials establishmentCredentials;
     private String businessName;
     private String cnpj;
@@ -28,7 +28,7 @@ public class Establishment implements Serializable, UserDetails {
     private City city;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "establishment")
+    @OneToMany(mappedBy = "establishment", orphanRemoval = true)
     private List<Coupon> coupons;
 
     public Long getId() {

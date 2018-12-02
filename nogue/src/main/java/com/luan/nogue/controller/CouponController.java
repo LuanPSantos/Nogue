@@ -1,8 +1,10 @@
 package com.luan.nogue.controller;
 
+import com.luan.nogue.constant.Status;
 import com.luan.nogue.entity.Coupon;
 import com.luan.nogue.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +32,23 @@ public class CouponController {
     }
 
     @GetMapping
-    public List<Coupon> findByCityAndBusinessName(@RequestParam("cityId") Long cityId, @RequestParam(value = "businessName", required = false) String businessName){
-        return couponService.findByCityAndBusinessName(cityId, businessName);
+    public List<Coupon> findAllForCustomers(
+            @RequestParam("cityId") Long cityId,
+            @RequestParam(value = "businessName", required = false) String businessName){
+
+        return couponService.findAllForCustomers(cityId, businessName);
+    }
+
+    @GetMapping(path = "all")
+    public List<Coupon> findAllByEstablishmentUsernameAndStatus(
+            Authentication authentication){
+
+        String username = (String) authentication.getPrincipal();
+        return couponService.findAllByEstablishmentUsernameAndStatus(username);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id){
+        this.couponService.delete(id);
     }
 }

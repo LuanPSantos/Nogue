@@ -56,9 +56,13 @@ public class EstablishmentService {
         establishmentCredentialsRepository.save(establishmentCredentials);
     }
 
-    public Establishment findById(Long establishmentId) {
-        Optional<Establishment> optionalEstablishment = establishmentRepository.findById(establishmentId);
+    public Establishment findByUsername(String username) {
+        Optional<Establishment> optionalEstablishment = establishmentRepository.findByEstablishmentCredentialsUsername(username);
 
         return optionalEstablishment.orElse(null);
+    }
+
+    public void delete(Long id){
+        this.establishmentRepository.deleteById(id);
     }
 }
