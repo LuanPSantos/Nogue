@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './auth/auth.module#AuthModule'},
-  { path: '**', redirectTo: ''}
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', loadChildren: './customer/customer.module#CustomerModule' },
 ];
 
 @NgModule({

@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Coupon } from 'src/app/shared/model/coupon.model';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { LoadCoupons } from '../actions/customer.actions';
 import { selectAllCoupons } from '../reducers/customer.reducer';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-coupons-home',
   templateUrl: './coupons-home.component.html',
-  styles: []
+  styleUrls: ['./coupons-home.component.scss']
 })
 export class CouponsHomeComponent implements OnInit {
 
   public coupons$: Observable<Coupon[]>;
 
   constructor(
-    private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private nav: NavController
   ) {
 
   }
@@ -33,7 +33,7 @@ export class CouponsHomeComponent implements OnInit {
   }
 
   public onCouponOpen(coupon) {
-    this.router.navigate(['/coupons-home/coupon', coupon.id]);
+    this.nav.navigateForward(['/home/coupon', coupon.id]);
   }
 
   public onSearchCoupon(filter) {

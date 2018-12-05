@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CouponsListComponent } from './coupons-list.component';
 import { CouponItemComponent } from './coupon-item/coupon-item.component';
 import { CommonModule } from '@angular/common';
-import { CardModule, ButtonModule } from 'primeng/primeng';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -14,9 +14,8 @@ import { CardModule, ButtonModule } from 'primeng/primeng';
     CouponItemComponent
   ],
   imports: [
-    CardModule,
+    IonicModule,
     CommonModule,
-    ButtonModule,
   ],
 })
 export class CouponsListModule {

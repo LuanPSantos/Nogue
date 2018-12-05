@@ -4,7 +4,7 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 @Component({
   selector: 'app-coupons-list',
   templateUrl: './coupons-list.component.html',
-  styleUrls: ['./coupons-list.comoponent.css']
+  styleUrls: ['./coupons-list.comoponent.scss']
 })
 export class CouponsListComponent implements OnInit {
 

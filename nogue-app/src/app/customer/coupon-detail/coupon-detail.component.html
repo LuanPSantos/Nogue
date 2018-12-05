@@ -1,17 +1,33 @@
-<div class="ui-g">
-  <div class="ui-g-12 ui-sm-12 ui-md-8 ui-lg-4 ui-xl-4 ui-md-offset-2 ui-lg-offset-4 ui-xl-offset-4 white container ui-card">
-    <div [ngClass]="{'status-active': isActive((coupon$ | async)), 'status-inactive': !isActive((coupon$ | async))}" class="div-status">{{isActive((coupon$ | async)) === true ? 'Ativo' : 'Inativo'}}</div>
+<ion-header >
+  <ion-toolbar color="primary">
+    <ion-back-button></ion-back-button>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content>
+  <ion-grid>
+    <ion-row>
 
-    <p class="discount">{{(coupon$ | async)?.discount}}% de desconto!</p>
-    <p class="department">{{(coupon$ | async)?.department}}</p>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{(coupon$ | async)?.establishment.businessName}} - {{(coupon$ | async)?.department}}</ion-card-subtitle>
+          <ion-card-title>{{(coupon$ | async)?.discount}}% de desconto!</ion-card-title>
+        </ion-card-header>
 
-    <p class="establishment primary">{{(coupon$ | async)?.establishment.businessName}}</p>
-    <ul>
-      <li class="unlimited" *ngIf="(coupon$ | async)?.unlimited === false">{{(coupon$ | async)?.amount}} unidades restantes.</li>
-      <li class="unlimited" *ngIf="(coupon$ | async)?.unlimited === true">Cupons <strong>Ilimitados</strong> ou até que se acabe o
-        estoque!</li>
-      <li class="deactivation">{{calcutateRemainingDate((coupon$ | async)?.automaticDeactivationDate)}} restantes.</li>
-    </ul>
-  </div>
-</div>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngIf="(coupon$ | async)?.unlimited === false">
+              <ion-label>{{(coupon$ | async)?.amount}} unidades restantes.</ion-label>
+            </ion-item>
+            <ion-item *ngIf="(coupon$ | async)?.unlimited === true">
+              <ion-label>Cupons <strong>Ilimitados</strong> ou até que se acabe o estoque!</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>{{calcutateRemainingDate((coupon$ | async)?.automaticDeactivationDate)}} restantes.</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>

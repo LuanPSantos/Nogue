@@ -1,49 +1,41 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouteReuseStrategy } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from './app-routing.module';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { environment } from 'src/environments/environment';
 import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CouponService } from './shared/service/coupon.service';
-import { AuthService } from './shared/service/auth.service';
-import { RouteGuards } from './shared/service/route-guards.service';
-import { StorageService } from './shared/service/storage.service';
-import { EstablishmentService } from './shared/service/establishment.service';
-import { TokenInterceptor } from './auth/token.interceptor';
-import { LocalizationService } from './shared/service/localizations.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects])
   ],
   providers: [
     CouponService,
-    AuthService,
-    RouteGuards,
-    StorageService,
-    EstablishmentService,
-    LocalizationService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

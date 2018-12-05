@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('workspace-project App', () => {
+describe('new App', () => {
   let page: AppPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to nogue-app!');
+    expect(page.getParagraphText()).toContain('The world is your oyster.');
   });
 });

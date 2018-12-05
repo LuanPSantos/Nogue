@@ -1,0 +1,7 @@
+<app-search-engine
+  (searchCoupon)="onSearchCoupon($event)"
+></app-search-engine>
+<app-coupons-list 
+  buttonLabel="Abrir"
+  [coupons]="coupons$ | async"
+  (buttonClick)="onCouponOpen($event)"></app-coupons-list>

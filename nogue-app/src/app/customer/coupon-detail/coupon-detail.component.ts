@@ -9,7 +9,7 @@ import { selectCouponById } from '../reducers/customer.reducer';
 @Component({
   selector: 'app-coupon-detail',
   templateUrl: './coupon-detail.component.html',
-  styleUrls: ['./coupon-detail.component.css']
+  styleUrls: ['./coupon-detail.component.scss']
 })
 export class CouponDetailComponent implements OnInit {
 
