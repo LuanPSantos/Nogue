@@ -13,16 +13,20 @@ public class Coupon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String department;
     private Integer amount;
     private Boolean unlimited;
+    @Column(nullable = false)
     private LocalDateTime automaticDeactivationDate;
+    @Column(nullable = false)
     private Float discount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Establishment establishment;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private Status status;
 
     public Long getId() {

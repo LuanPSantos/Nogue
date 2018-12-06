@@ -18,17 +18,22 @@ public class Establishment implements Serializable, UserDetails {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "establishment", orphanRemoval = true)
+    @OneToOne(mappedBy = "establishment", orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private EstablishmentCredentials establishmentCredentials;
+    @Column(nullable = false)
     private String businessName;
+    @Column(nullable = false, length = 14)
     private String cnpj;
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private City city;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "establishment", orphanRemoval = true)
+    @OneToMany(mappedBy = "establishment", cascade = CascadeType.REMOVE)
     private List<Coupon> coupons;
 
     public Long getId() {

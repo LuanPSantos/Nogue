@@ -1,28 +1,19 @@
 package com.luan.nogue.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class City implements Serializable {
+public class State implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String name;
-
-    @ManyToOne
-    private State state;
-
-    public City(Long id) {
-        this.id = id;
-    }
-
-    public City() {
-    }
+    @Column(nullable = false)
+    private String initials;
 
     public Long getId() {
         return id;
@@ -40,20 +31,20 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public State getState() {
-        return state;
+    public String getInitials() {
+        return initials;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setInitials(String initials) {
+        this.initials = initials;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City)) return false;
-        City city = (City) o;
-        return Objects.equals(getId(), city.getId());
+        if (!(o instanceof State)) return false;
+        State state = (State) o;
+        return Objects.equals(getId(), state.getId());
     }
 
     @Override

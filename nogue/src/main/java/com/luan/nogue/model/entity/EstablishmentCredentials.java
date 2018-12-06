@@ -9,10 +9,13 @@ public class EstablishmentCredentials implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
     private Establishment establishment;
 
     public Long getId() {
