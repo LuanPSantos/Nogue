@@ -1,8 +1,8 @@
 package com.luan.nogue.service;
 
 import com.luan.nogue.constant.Status;
-import com.luan.nogue.entity.City;
-import com.luan.nogue.entity.Coupon;
+import com.luan.nogue.model.entity.City;
+import com.luan.nogue.model.entity.Coupon;
 import com.luan.nogue.repository.CityRepository;
 import com.luan.nogue.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,9 @@ public class CouponService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Transactional
     public void save(Coupon coupon) {
         couponRepository.save(coupon);
-    }
-
-    public Coupon findById(Long couponId) {
-        Optional<Coupon> couponOptional = couponRepository.findById(couponId);
-
-        return couponOptional.orElse(null);
     }
 
     public List<Coupon> findAllForCustomers(Long cityId, String businessName) {
@@ -44,11 +39,11 @@ public class CouponService {
         return coupons;
     }
 
-    public List<Coupon> findAllByEstablishmentUsernameAndStatus(String username) {
+    public List<Coupon> findAllByEstablishment(String username) {
         List<Coupon> coupons = new ArrayList<>();
         coupons.addAll(
                 couponRepository
-                        .findAllByEstablishmentUsername(username)
+                        .findAllByEstablishment(username)
                         .orElse(new ArrayList<>()));
 
         return coupons;
@@ -60,7 +55,7 @@ public class CouponService {
 
     @Scheduled(cron = "0 0 * * * *")
     @Transactional
-    public void desactiveCoupons() {
+    public void deactivsateCoupons() {
 
         Optional<List<Coupon>> couponsOptional = couponRepository.findCouponsToDeactivation(LocalDateTime.now());
 

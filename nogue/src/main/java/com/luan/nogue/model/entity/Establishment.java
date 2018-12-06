@@ -1,4 +1,4 @@
-package com.luan.nogue.entity;
+package com.luan.nogue.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

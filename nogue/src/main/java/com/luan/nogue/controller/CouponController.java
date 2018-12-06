@@ -1,7 +1,6 @@
 package com.luan.nogue.controller;
 
-import com.luan.nogue.constant.Status;
-import com.luan.nogue.entity.Coupon;
+import com.luan.nogue.model.entity.Coupon;
 import com.luan.nogue.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,11 +25,6 @@ public class CouponController {
         couponService.save(coupon);
     }
 
-    @GetMapping(path = "{couponId}")
-    public Coupon findById(@PathVariable("couponId") Long couponId){
-        return couponService.findById(couponId);
-    }
-
     @GetMapping
     public List<Coupon> findAllForCustomers(
             @RequestParam("cityId") Long cityId,
@@ -40,11 +34,11 @@ public class CouponController {
     }
 
     @GetMapping(path = "all")
-    public List<Coupon> findAllByEstablishmentUsernameAndStatus(
+    public List<Coupon> findAllByEstablishment(
             Authentication authentication){
 
         String username = (String) authentication.getPrincipal();
-        return couponService.findAllByEstablishmentUsernameAndStatus(username);
+        return couponService.findAllByEstablishment(username);
     }
 
     @DeleteMapping(path = "{id}")

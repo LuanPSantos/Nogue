@@ -1,7 +1,7 @@
 package com.luan.nogue.service;
 
-import com.luan.nogue.entity.City;
-import com.luan.nogue.entity.State;
+import com.luan.nogue.model.entity.City;
+import com.luan.nogue.model.entity.State;
 import com.luan.nogue.repository.CityRepository;
 import com.luan.nogue.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;

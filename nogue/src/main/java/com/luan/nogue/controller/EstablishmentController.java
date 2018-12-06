@@ -1,7 +1,7 @@
 package com.luan.nogue.controller;
 
-import com.luan.nogue.entity.Establishment;
-import com.luan.nogue.entity.EstablishmentCredentials;
+import com.luan.nogue.model.entity.Establishment;
+import com.luan.nogue.model.entity.EstablishmentCredentials;
 import com.luan.nogue.service.EstablishmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

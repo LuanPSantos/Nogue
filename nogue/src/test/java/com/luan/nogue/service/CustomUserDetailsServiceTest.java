@@ -1,6 +1,6 @@
 package com.luan.nogue.service;
 
-import com.luan.nogue.entity.Establishment;
+import com.luan.nogue.model.entity.Establishment;
 import static org.junit.Assert.*;
 
 import com.luan.nogue.repository.EstablishmentRepository;
@@ -32,19 +32,19 @@ public class CustomUserDetailsServiceTest {
 
     @Test
     @DisplayName("Should find the establishment(user) by his email")
-    public void should_find_the_establishment_by_email(){
+    public void should_find_the_establishment_by_username(){
         Establishment establishment = createEstablishment();
         when(establishmentRepository.findByEstablishmentCredentialsUsername(any())).thenReturn(Optional.of(establishment));
 
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername("email");
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername("user");
 
-        assertEquals(establishment.getEmail(), userDetails.getUsername());
+        assertEquals(establishment.getUsername(), userDetails.getUsername());
         assertEquals(establishment.getPassword(), userDetails.getPassword());
     }
 
     @Test(expected = UsernameNotFoundException.class)
     @DisplayName("Should not find the establishment(user) by his email")
-    public void should_not_find_the_establishment_by_email(){
+    public void should_not_find_the_establishment_by_username(){
         when(establishmentRepository.findByEstablishmentCredentialsUsername(any())).thenReturn(Optional.empty());
 
         customUserDetailsService.loadUserByUsername("email");

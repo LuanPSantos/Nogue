@@ -1,7 +1,7 @@
 package com.luan.nogue.creator;
 
 import com.luan.nogue.constant.Status;
-import com.luan.nogue.entity.*;
+import com.luan.nogue.model.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public class ObjectsCreator {
 
     public static Status createStatus(){
-
-
         return Status.ACTIVE;
     }
 
@@ -53,7 +51,8 @@ public class ObjectsCreator {
         coupon.setDepartment("Department");
         coupon.setAmount(10);
         coupon.setAutomaticDeactivationDate(LocalDateTime.of(2018,11,13,22,50));
-        coupon.setEstablishment(new Establishment());
+        coupon.setEstablishment(createEstablishment());
+        coupon.setDiscount(10f);
 
         return coupon;
     }

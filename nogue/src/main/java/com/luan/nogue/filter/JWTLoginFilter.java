@@ -1,7 +1,7 @@
 package com.luan.nogue.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.luan.nogue.entity.EstablishmentCredentials;
+import com.luan.nogue.model.entity.EstablishmentCredentials;
 import com.luan.nogue.util.TokenAuthenticationUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -28,7 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/coupon").permitAll()
-                .antMatchers(HttpMethod.GET, "/coupon/{\\d+}").permitAll()
                 .antMatchers(HttpMethod.GET, "/localization/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()

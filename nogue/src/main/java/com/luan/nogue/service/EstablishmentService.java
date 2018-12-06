@@ -1,7 +1,7 @@
 package com.luan.nogue.service;
 
-import com.luan.nogue.entity.Establishment;
-import com.luan.nogue.entity.EstablishmentCredentials;
+import com.luan.nogue.model.entity.Establishment;
+import com.luan.nogue.model.entity.EstablishmentCredentials;
 import com.luan.nogue.repository.CityRepository;
 import com.luan.nogue.repository.EstablishmentCredentialsRepository;
 import com.luan.nogue.repository.EstablishmentRepository;

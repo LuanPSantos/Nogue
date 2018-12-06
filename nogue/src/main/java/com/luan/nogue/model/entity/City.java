@@ -1,6 +1,4 @@
-package com.luan.nogue.entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.luan.nogue.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
 package com.luan.nogue.controller;
 
-import com.luan.nogue.entity.City;
-import com.luan.nogue.entity.State;
+import com.luan.nogue.model.entity.City;
+import com.luan.nogue.model.entity.State;
 import com.luan.nogue.service.LocalizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

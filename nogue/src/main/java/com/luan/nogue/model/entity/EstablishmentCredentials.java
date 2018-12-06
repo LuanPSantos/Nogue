@@ -1,4 +1,4 @@
-package com.luan.nogue.entity;
+package com.luan.nogue.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

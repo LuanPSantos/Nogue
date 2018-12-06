@@ -1,7 +1,7 @@
 package com.luan.nogue.repository;
 
-import com.luan.nogue.entity.City;
-import com.luan.nogue.entity.State;
+import com.luan.nogue.model.entity.City;
+import com.luan.nogue.model.entity.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

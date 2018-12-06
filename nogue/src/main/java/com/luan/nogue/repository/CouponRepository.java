@@ -1,11 +1,10 @@
 package com.luan.nogue.repository;
 
 import com.luan.nogue.constant.Status;
-import com.luan.nogue.entity.City;
-import com.luan.nogue.entity.Coupon;
+import com.luan.nogue.model.entity.City;
+import com.luan.nogue.model.entity.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -25,11 +24,11 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
     Optional<List<Coupon>> findAllForCustomers(City city, String businessName, Status status);
 
     @Query("Select coupon from Coupon coupon " +
-            "join coupon.establishment establishment " +
-            "join establishment.establishmentCredentials credentials " +
+            "join fetch coupon.establishment establishment " +
+            "join fetch establishment.establishmentCredentials credentials " +
             "where credentials.username = :username "
     )
-    Optional<List<Coupon>> findAllByEstablishmentUsername(String username);
+    Optional<List<Coupon>> findAllByEstablishment(String username);
 
     @Query("Select coupon from Coupon coupon " +
             "where coupon.automaticDeactivationDate <= :date"
