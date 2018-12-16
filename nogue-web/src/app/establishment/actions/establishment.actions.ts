@@ -4,6 +4,7 @@ import { Establishment } from 'src/app/shared/model/establishment.model';
 import { Coupon } from 'src/app/shared/model/coupon.model';
 import { State } from 'src/app/shared/model/state.model';
 import { City } from 'src/app/shared/model/city.model';
+import { Image } from 'src/app/shared/model/image.model';
 
 export enum EstablishmentActionTypes {
   LoadEstablishment = '[Establishment] Load Load Establishment',
@@ -17,11 +18,16 @@ export enum EstablishmentActionTypes {
   LoadCouponsSuccess = '[Establishment] Load Coupons Success',
   SaveCoupon = '[Establishment] Save Coupons',
   DeleteCoupon = '[Establishment] Delete Coupon',
+  StartNewCoupon = '[Establishment] Start New Coupon',
 
   LoadStates = '[Establishment] Load States',
   LoadStatesSuccess = '[Establishment] Load States Success',
   LoadCities = '[Establishment] Load Cities',
-  LoadCitiesSuccess = '[Establishment] Load Cities Success'
+  LoadCitiesSuccess = '[Establishment] Load Cities Success',
+
+  UploadImage = '[Establishment] Upload Image',
+  UploadImageSuccess = '[Establishment] Upload Image Success',
+  DeleteImage = '[Establishment] Delete Image'
 }
 
 export class LoadEstablishment implements Action {
@@ -82,6 +88,10 @@ export class DeleteCoupon implements Action {
   constructor(public payload: { couponId: string }) { }
 }
 
+export class StartNewCoupon implements Action {
+  readonly type = EstablishmentActionTypes.StartNewCoupon;
+}
+
 // ====== Localization
 
 export class LoadStates implements Action {
@@ -106,6 +116,26 @@ export class LoadCitiesSuccess implements Action {
   constructor(public payload: { cities: City[] }) { }
 }
 
+// ===== File
+
+export class UploadImage implements Action {
+  readonly type = EstablishmentActionTypes.UploadImage;
+
+  constructor(public payload: { data: FormData }) { }
+}
+
+export class UploadImageSuccess implements Action {
+  readonly type = EstablishmentActionTypes.UploadImageSuccess;
+
+  constructor(public payload: { image: Image }) { }
+}
+
+export class DeleteImage implements Action {
+  readonly type = EstablishmentActionTypes.DeleteImage;
+
+  constructor(public payload: { imagaName: string }) { }
+}
+
 export type EstablishmentActions = LoadEstablishment
   | RegisterEstablishment
   | LoadEstablishmentSuccess
@@ -118,4 +148,7 @@ export type EstablishmentActions = LoadEstablishment
   | LoadStates
   | LoadStatesSuccess
   | LoadCities
-  | LoadCitiesSuccess;
+  | LoadCitiesSuccess
+  | UploadImage
+  | UploadImageSuccess
+  | StartNewCoupon;

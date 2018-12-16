@@ -18,6 +18,7 @@ import { StorageService } from './shared/service/storage.service';
 import { EstablishmentService } from './shared/service/establishment.service';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { LocalizationService } from './shared/service/localizations.service';
+import { FileService } from './shared/service/file.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { LocalizationService } from './shared/service/localizations.service';
     EffectsModule.forRoot([AppEffects])
   ],
   providers: [
+    FileService,
     CouponService,
     AuthService,
     RouteGuards,

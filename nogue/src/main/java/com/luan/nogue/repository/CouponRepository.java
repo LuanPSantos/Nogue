@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     @Query("Select coupon from Coupon coupon " +
-            "join coupon.establishment establishment " +
+            "join fetch coupon.establishment establishment " +
             "join coupon.establishment.city city " +
             "where establishment.businessName like concat('%',:businessName,'%') "+
             "and city = :city " +

@@ -14,7 +14,10 @@ import {
   LoadStates,
   LoadStatesSuccess,
   LoadCities,
-  LoadCitiesSuccess
+  LoadCitiesSuccess,
+  UploadImage,
+  UploadImageSuccess,
+  DeleteImage
 } from '../actions/establishment.actions';
 import { tap } from 'rxjs/operators';
 import { EstablishmentService } from 'src/app/shared/service/establishment.service';
@@ -25,6 +28,8 @@ import { Login } from 'src/app/auth/actions/auth.actions';
 import { CouponService } from 'src/app/shared/service/coupon.service';
 import { LocalizationService } from 'src/app/shared/service/localizations.service';
 import { StorageService } from 'src/app/shared/service/storage.service';
+import { FileService } from 'src/app/shared/service/file.service';
+import { noop } from 'rxjs';
 
 @Injectable()
 export class EstablishmentEffects {
@@ -130,6 +135,26 @@ export class EstablishmentEffects {
     }))
   );
 
+  // === File
+
+  @Effect({ dispatch: false })
+  uploadImage$ = this.actions$.pipe(
+    ofType<UploadImage>(EstablishmentActionTypes.UploadImage),
+    tap((action) => this.fileService.uploadImage(action.payload.data).subscribe((image) => {
+      this.store.dispatch(new UploadImageSuccess({ image }));
+    }, error => {
+      console.log('Erro ao realizar upload da image: ', error);
+    }))
+  );
+
+  @Effect({ dispatch: false })
+  deleteImage$ = this.actions$.pipe(
+    ofType<DeleteImage>(EstablishmentActionTypes.DeleteImage),
+    tap((action) => this.fileService.deleteImage(action.payload.imagaName).subscribe(noop, error => {
+      console.log('Erro ao deletar da image: ', error);
+    }))
+  );
+
   constructor(
     private actions$: Actions,
     private establishmentService: EstablishmentService,
@@ -137,6 +162,7 @@ export class EstablishmentEffects {
     private router: Router,
     private store: Store<AppState>,
     private localizationService: LocalizationService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private fileService: FileService
   ) { }
 }

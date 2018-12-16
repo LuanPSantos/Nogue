@@ -5,11 +5,14 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { State } from 'src/app/shared/model/state.model';
 import { City } from 'src/app/shared/model/city.model';
+import { Image } from 'src/app/shared/model/image.model';
 
 export interface EstablishmentState extends EntityState<Coupon> {
   establishment: Establishment;
   states: State[];
   cities: City[];
+  newCouponImage: Image;
+  loadingCouponImage: boolean;
 }
 
 export const adapter: EntityAdapter<Coupon> = createEntityAdapter<Coupon>();
@@ -21,7 +24,9 @@ adapter.getInitialState({
 export const initialState: EstablishmentState = adapter.getInitialState({
   establishment: null,
   states: [],
-  cities: []
+  cities: [],
+  newCouponImage: null,
+  loadingCouponImage: false
 });
 
 export function reducer(state = initialState, action: EstablishmentActions): EstablishmentState {
@@ -46,6 +51,26 @@ export function reducer(state = initialState, action: EstablishmentActions): Est
       return {
         ...state,
         states: action.payload.states
+      };
+
+    case EstablishmentActionTypes.UploadImage:
+      return {
+        ...state,
+        loadingCouponImage: true
+      };
+
+    case EstablishmentActionTypes.UploadImageSuccess:
+      return {
+        ...state,
+        newCouponImage: action.payload.image,
+        loadingCouponImage: false
+      };
+
+    case EstablishmentActionTypes.StartNewCoupon:
+      return {
+        ...state,
+        loadingCouponImage: false,
+        newCouponImage: null
       };
 
     default:
@@ -86,4 +111,16 @@ export const selectStates = createSelector(
 export const selectCities = createSelector(
   establishmentState,
   (state) => state.cities
+);
+
+// === File
+
+export const selectNewCouponImage = createSelector(
+  establishmentState,
+  (state) => state.newCouponImage
+);
+
+export const selectLoagindCuponImage = createSelector(
+  establishmentState,
+  (state) => state.loadingCouponImage
 );

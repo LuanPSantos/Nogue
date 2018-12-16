@@ -53,7 +53,8 @@ public class CouponService {
         couponRepository.deleteById(id);
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+    //0 0 * * * * - cada hora
+    @Scheduled(cron = "0 * * * * *")
     @Transactional
     public void deactivsateCoupons() {
 

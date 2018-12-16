@@ -3,7 +3,9 @@ import { Status } from './status.model';
 
 export class Coupon {
   public id?: number;
-  public department?: string;
+  public product?: string;
+  public image?: string;
+  public originalPrice?: number;
   public amount?: number;
   public unlimited?: boolean;
   public automaticDeactivationDate?: Date;

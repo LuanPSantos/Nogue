@@ -14,7 +14,9 @@ import {
   SidebarModule,
   DropdownModule,
   CalendarModule,
-  CheckboxModule
+  CheckboxModule,
+  FileUploadModule,
+  ProgressBarModule
 } from 'primeng/primeng';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CouponsListModule } from '../shared/component/coupons-list/coupons-list.module';
@@ -32,6 +34,8 @@ import { EstablishmentEffects } from './effects/establishment.effects';
     UpdateCouponComponent
   ],
   imports: [
+    ProgressBarModule,
+    FileUploadModule,
     CalendarModule,
     CheckboxModule,
     DropdownModule,

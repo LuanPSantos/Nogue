@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/coupon").permitAll()
                 .antMatchers(HttpMethod.GET, "/localization/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/static/file/image/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/establishment").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()

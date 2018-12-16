@@ -8,9 +8,23 @@
       </div>
 
       <div class="ui-g-12 input-coupon">
+        <p-fileUpload #uploader name="files[]" mode="basic" chooseLabel="Selecione a imagem do produto" styleClass="full-width"
+          auto="auto" customUpload="true" (uploadHandler)="upload($event)" accept="image/*"></p-fileUpload>
+        <p-progressBar *ngIf="loadingImage$ | async" mode="indeterminate" [style]="{'height': '4px'}"></p-progressBar>
+        <div class="product-image" [ngStyle]="{'background-image': 'url(' + ( image$ | async)?.url + ')'}"></div>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
         <span class="ui-float-label">
-          <input id="input-department" type="text" class="full-width" pInputText formControlName="department" value=" ">
-          <label for="input-department">Departamento</label>
+          <input id="input-product" type="text" class="full-width" pInputText formControlName="product" value=" ">
+          <label for="input-product">Produto</label>
+        </span>
+      </div>
+
+      <div class="ui-g-12 input-coupon">
+        <span class="ui-float-label">
+          <input id="input-product" type="text" class="full-width" pInputText formControlName="originalPrice" value=" ">
+          <label for="input-product">Preço original</label>
         </span>
       </div>
 
@@ -22,7 +36,7 @@
       </div>
 
       <div class="ui-g-12 input-coupon chkbox-label-unlimited">
-          <p-checkbox name="unlimited" label="Itens ilimitados" formControlName="unlimited" binary="true"></p-checkbox>
+        <p-checkbox name="unlimited" label="Itens ilimitados" formControlName="unlimited" binary="true"></p-checkbox>
       </div>
 
       <div class="ui-g-12 input-coupon">

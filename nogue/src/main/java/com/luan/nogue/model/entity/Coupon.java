@@ -14,13 +14,16 @@ public class Coupon implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String department;
+    private String product;
+    private String image;
     private Integer amount;
     private Boolean unlimited;
     @Column(nullable = false)
     private LocalDateTime automaticDeactivationDate;
     @Column(nullable = false)
     private Float discount;
+    @Column(nullable = false)
+    private Float originalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Establishment establishment;
@@ -28,6 +31,14 @@ public class Coupon implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private Status status;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;
@@ -37,12 +48,12 @@ public class Coupon implements Serializable {
         this.id = id;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getProduct() {
+        return product;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
     public Integer getAmount() {
@@ -91,6 +102,14 @@ public class Coupon implements Serializable {
 
     public void setDiscount(Float discount) {
         this.discount = discount;
+    }
+
+    public Float getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(Float originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     @Override

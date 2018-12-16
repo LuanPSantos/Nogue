@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
-import { DeleteCoupon, SaveCoupon } from '../actions/establishment.actions';
+import { DeleteCoupon, SaveCoupon, UploadImage, StartNewCoupon, DeleteImage } from '../actions/establishment.actions';
 import { ActivatedRoute } from '@angular/router';
-import { selectCouponsById } from '../reducers/establishment.reducer';
+import { selectCouponsById, selectNewCouponImage, selectLoagindCuponImage } from '../reducers/establishment.reducer';
 import { Coupon } from 'src/app/shared/model/coupon.model';
+import { Observable, of, Subscription, merge } from 'rxjs';
+import { Image } from 'src/app/shared/model/image.model';
+import { mergeMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-update-coupon',
   templateUrl: './update-coupon.component.html',
   styleUrls: ['./update-coupon.component.css']
 })
-export class UpdateCouponComponent implements OnInit {
+export class UpdateCouponComponent implements OnInit, OnDestroy {
 
   public status = [
     { label: 'Ativo', value: 'ACTIVE' },
@@ -20,6 +23,12 @@ export class UpdateCouponComponent implements OnInit {
   ];
 
   public couponForm: FormGroup;
+  public image$: Observable<Image> = of({});
+  public loadingImage$: Observable<boolean> = of(false);
+  private imageSubscription: Subscription;
+
+  @ViewChild('uploader')
+  public uploader;
 
   constructor(
     fb: FormBuilder,
@@ -28,7 +37,7 @@ export class UpdateCouponComponent implements OnInit {
 
     this.couponForm = fb.group({
       id: new FormControl(null),
-      department: new FormControl('', Validators.compose([
+      product: new FormControl('', Validators.compose([
         Validators.minLength(3),
         Validators.required])
       ),
@@ -41,22 +50,48 @@ export class UpdateCouponComponent implements OnInit {
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
       status: new FormControl('', Validators.required),
-      establishment: new FormControl(null)
+      establishment: new FormControl(null),
+      image: new FormControl(''),
+      originalPrice: new FormControl('', Validators.compose([
+        Validators.min(0),
+        Validators.pattern('[0-9]*')]))
     });
   }
 
   ngOnInit() {
+    this.store.dispatch(new StartNewCoupon());
+    let formImage$: Observable<Image>;
+
     this.store.select(selectCouponsById, { id: this.route.snapshot.params['id'] })
       .subscribe((coupon: Coupon) => {
         this.couponForm.get('id').setValue(coupon.id);
-        this.couponForm.get('department').setValue(coupon.department);
+        this.couponForm.get('product').setValue(coupon.product);
         this.couponForm.get('amount').setValue(coupon.amount);
         this.couponForm.get('unlimited').setValue(coupon.unlimited);
         this.couponForm.get('automaticDeactivationDate').setValue(new Date(coupon.automaticDeactivationDate));
         this.couponForm.get('discount').setValue(coupon.discount);
         this.couponForm.get('status').setValue(coupon.status);
         this.couponForm.get('establishment').setValue(coupon.establishment);
+        this.couponForm.get('image').setValue(coupon.image);
+        this.couponForm.get('originalPrice').setValue(coupon.originalPrice);
+
+        formImage$ = of({ url: coupon.image });
       }).unsubscribe();
+
+    this.image$ = merge(formImage$, this.store.select(selectNewCouponImage)).pipe(
+      filter((image) => image != null)
+    );
+    this.loadingImage$ = this.store.select(selectLoagindCuponImage);
+
+    this.imageSubscription = this.image$.subscribe((image: Image) => {
+      if (image) {
+        this.couponForm.get('image').setValue(image.url);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.imageSubscription.unsubscribe();
   }
 
   public update() {
@@ -64,7 +99,33 @@ export class UpdateCouponComponent implements OnInit {
   }
 
   public delete() {
+    this.deleteImage();
+
     this.store.dispatch(new DeleteCoupon({ couponId: this.couponForm.get('id').value }));
+  }
+
+  public upload(event) {
+    this.deleteImage();
+
+    fetch(event.files[0].objectURL.changingThisBreaksApplicationSecurity)
+      .then((response: Response) =>
+        response.blob())
+      .then(image => {
+        const data = new FormData();
+
+        data.append('image', image, event.files[0].name);
+
+        this.store.dispatch(new UploadImage({ data }));
+
+        this.uploader.clear();
+      });
+  }
+
+  private deleteImage() {
+    let image: string = this.couponForm.get('image').value;
+    image = image.substr(image.lastIndexOf('/') + 1);
+
+    this.store.dispatch(new DeleteImage({ imagaName: image }));
   }
 
 }

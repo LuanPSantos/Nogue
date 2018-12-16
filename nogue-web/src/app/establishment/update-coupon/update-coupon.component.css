@@ -15,3 +15,12 @@
 .chkbox-label-unlimited{
   color: #888 !important;
 }
+
+.product-image{
+  background-color: #eee;
+  height: 200px;
+  margin-top: 8px;
+
+  background-size: 100% auto;
+  background-position: center;
+}

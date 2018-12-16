@@ -15,6 +15,13 @@ public class State implements Serializable {
     @Column(nullable = false)
     private String initials;
 
+    public State() {
+    }
+
+    public State(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

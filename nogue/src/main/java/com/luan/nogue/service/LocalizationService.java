@@ -24,10 +24,8 @@ public class LocalizationService {
     }
 
     public List<City> findCitiesByState(Long stateId) {
-        Optional<State> optionalState = stateRepository.findById(stateId);
-
         List<City> cities = new ArrayList<>();
-        optionalState.ifPresent((state) -> cities.addAll(cityRepository.findByState(state)));
+        cities.addAll(cityRepository.findByState(new State(stateId)));
 
         return cities;
     }

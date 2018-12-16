@@ -48,7 +48,7 @@ public class ObjectsCreator {
         coupon.setId(1l);
         coupon.setUnlimited(false);
         coupon.setStatus(createStatus());
-        coupon.setDepartment("Department");
+        coupon.setProduct("Department");
         coupon.setAmount(10);
         coupon.setAutomaticDeactivationDate(LocalDateTime.of(2018,11,13,22,50));
         coupon.setEstablishment(createEstablishment());
