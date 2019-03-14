@@ -1,7 +1,11 @@
 package com.luan.nogue.creator;
 
-import com.luan.nogue.constant.Status;
-import com.luan.nogue.model.entity.*;
+import com.luan.nogue.coupon.model.Coupon;
+import com.luan.nogue.establishment.model.Establishment;
+import com.luan.nogue.establishment.model.EstablishmentCredentials;
+import com.luan.nogue.location.model.City;
+import com.luan.nogue.coupon.model.Status;
+import com.luan.nogue.location.model.State;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
