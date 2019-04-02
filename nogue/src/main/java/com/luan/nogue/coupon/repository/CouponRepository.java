@@ -25,10 +25,9 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     @Query("Select coupon from Coupon coupon " +
             "join fetch coupon.establishment establishment " +
-            "join fetch establishment.establishmentCredentials credentials " +
-            "where credentials.username = :username "
+            "where establishment.id = :establishmentId "
     )
-    Optional<List<Coupon>> findAllByEstablishment(String username);
+    Optional<List<Coupon>> findAllByEstablishment(Long establishmentId);
 
     @Query("Select coupon from Coupon coupon " +
             "where coupon.automaticDeactivationDate <= :date"

@@ -8,9 +8,9 @@ import { City } from '../model/city.model';
 const BASE_URL = environment.BASE_URL;
 
 @Injectable()
-export class LocalizationService {
+export class LocationService {
 
-  LOCALIZATION_URL = BASE_URL + '/localization';
+  LOCALIZATION_URL = BASE_URL + '/locations';
 
   constructor(private http: HttpClient) { }
 

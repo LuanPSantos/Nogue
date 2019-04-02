@@ -17,7 +17,7 @@ import { RouteGuards } from './shared/service/route-guards.service';
 import { StorageService } from './shared/service/storage.service';
 import { EstablishmentService } from './shared/service/establishment.service';
 import { TokenInterceptor } from './auth/token.interceptor';
-import { LocalizationService } from './shared/service/localizations.service';
+import { LocationService } from './shared/service/locations.service';
 import { FileService } from './shared/service/file.service';
 
 @NgModule({
@@ -40,7 +40,7 @@ import { FileService } from './shared/service/file.service';
     RouteGuards,
     StorageService,
     EstablishmentService,
-    LocalizationService,
+    LocationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -48,8 +48,10 @@
       </div>
 
       <div class="ui-g-12 input-coupon">
-        <p-calendar [showTime]="true" inputStyleClass="full-width" [style]="{'width': '100%'}" formControlName="automaticDeactivationDate"
-          [touchUI]="true" placeholder="Dada de expiração"></p-calendar>
+        <span class="ui-float-label">
+          <p-inputMask id="input-auto-deactivation-date" styleClass="full-width" formControlName="automaticDeactivationDate" mask="99/99/9999"></p-inputMask>
+          <label for="input-auto-deactivation-date">Data de desativação automática</label>
+        </span>
       </div>
 
       <div class="ui-g-12 input-coupon">

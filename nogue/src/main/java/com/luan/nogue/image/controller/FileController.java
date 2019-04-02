@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("file")
+@RequestMapping("files")
 public class FileController {
 
     @Autowired
     private FileService fileService;
 
-    @PostMapping("image")
+    @PostMapping("images")
     public Image uploadImage(@RequestParam MultipartFile image) {
         return fileService.saveImage(image);
     }
 
-    @DeleteMapping("image/{name}")
+    @DeleteMapping("images/{name}")
     public void deleteImage(@PathVariable("name") String name) {
         fileService.deleteImage(name);
     }

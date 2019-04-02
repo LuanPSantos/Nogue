@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class LocalizationService {
+public class LocationService {
 
     @Autowired
     private StateRepository stateRepository;

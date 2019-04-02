@@ -4,13 +4,14 @@ import { EstablishmentCredentials } from '../model/establishment-credentials.mod
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Establishment } from '../model/establishment.model';
+import { Coupon } from '../model/coupon.model';
 
 const BASE_URL = environment.BASE_URL;
 
 @Injectable()
 export class EstablishmentService {
 
-  ESTABLISHMENT_URL = BASE_URL + '/establishment';
+  ESTABLISHMENT_URL = BASE_URL + '/establishments';
 
   constructor(private http: HttpClient) {
 
@@ -30,5 +31,9 @@ export class EstablishmentService {
 
   public delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.ESTABLISHMENT_URL}/${id}`);
+  }
+
+  public findEstablishmentCoupons(id: string): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(`${this.ESTABLISHMENT_URL}/${id}/coupons`);
   }
 }

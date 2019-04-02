@@ -9,17 +9,17 @@ const BASE_URL = environment.BASE_URL;
 @Injectable()
 export class FileService {
 
-  FILE_URL = BASE_URL + '/file';
+  FILE_URL = BASE_URL + '/files';
 
   constructor(private http: HttpClient) {
 
   }
 
   public uploadImage(formData: FormData): Observable<Image> {
-    return this.http.post<Image>(`${this.FILE_URL}/image`, formData);
+    return this.http.post<Image>(`${this.FILE_URL}/images`, formData);
   }
 
   public deleteImage(imageName: string): Observable<void> {
-    return this.http.delete<void>(`${this.FILE_URL}/image/${imageName}`);
+    return this.http.delete<void>(`${this.FILE_URL}/images/${imageName}`);
   }
 }

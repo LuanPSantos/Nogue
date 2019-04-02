@@ -3,11 +3,21 @@ p {
 }
 
 .establishment-name {
-  font-weight: bold
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+  background-color: #eee;
 }
 
 .discount {
-  font-size: 24pt;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  background-color: #e91224;
+  color: white;
+  font-weight: bold;
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+}
+
+.coupon-image{
+  border-radius: 3px 3px 0 0;
 }

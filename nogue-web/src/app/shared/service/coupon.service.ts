@@ -9,7 +9,7 @@ const BASE_URL = environment.BASE_URL;
 @Injectable()
 export class CouponService {
 
-  private COUPON_URL = BASE_URL + '/coupon';
+  private COUPON_URL = BASE_URL + '/coupons';
 
   constructor(private http: HttpClient) {
 
@@ -22,10 +22,6 @@ export class CouponService {
       .set('businessName', businessName);
 
     return this.http.get<Coupon[]>(this.COUPON_URL, { params: params });
-  }
-
-  public findAll(): Observable<Coupon[]> {
-    return this.http.get<Coupon[]>(`${this.COUPON_URL}/all`);
   }
 
   public findById(couponId: number): Observable<Coupon> {

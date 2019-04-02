@@ -2,7 +2,7 @@ package com.luan.nogue.configuration;
 
 import com.luan.nogue.security.filter.JWTAuthenticationFilter;
 import com.luan.nogue.security.filter.JWTLoginFilter;
-import com.luan.nogue.establishment.model.CustomUserDetailsService;
+import com.luan.nogue.establishment.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,10 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .cors().and()
                 .csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/coupon").permitAll()
-                .antMatchers(HttpMethod.GET, "/localization/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/static/file/image/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/establishment").permitAll()
+                .antMatchers(HttpMethod.GET, "/coupons").permitAll()
+                .antMatchers(HttpMethod.GET, "/locations/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/static/files/images/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/establishments").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()

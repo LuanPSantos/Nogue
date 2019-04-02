@@ -9,6 +9,7 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
 import { Observable, of, Subscription, merge } from 'rxjs';
 import { Image } from 'src/app/shared/model/image.model';
 import { mergeMap, map, filter } from 'rxjs/operators';
+import { dateAsString, stringAsDate } from 'src/app/shared/util/string.util';
 
 @Component({
   selector: 'app-update-coupon',
@@ -35,6 +36,9 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private route: ActivatedRoute) {
 
+    let date = new Date();
+    date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3);
+
     this.couponForm = fb.group({
       id: new FormControl(null),
       product: new FormControl('', Validators.compose([
@@ -45,7 +49,7 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
       unlimited: new FormControl(false),
-      automaticDeactivationDate: new FormControl(null),
+      automaticDeactivationDate: new FormControl(`${dateAsString(date)}`),
       discount: new FormControl('', Validators.compose([
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
@@ -68,7 +72,7 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
         this.couponForm.get('product').setValue(coupon.product);
         this.couponForm.get('amount').setValue(coupon.amount);
         this.couponForm.get('unlimited').setValue(coupon.unlimited);
-        this.couponForm.get('automaticDeactivationDate').setValue(new Date(coupon.automaticDeactivationDate));
+        this.couponForm.get('automaticDeactivationDate').setValue(dateAsString(coupon.automaticDeactivationDate));
         this.couponForm.get('discount').setValue(coupon.discount);
         this.couponForm.get('status').setValue(coupon.status);
         this.couponForm.get('establishment').setValue(coupon.establishment);
@@ -95,6 +99,10 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
   }
 
   public update() {
+    this.couponForm
+    .get('automaticDeactivationDate')
+    .setValue(stringAsDate(this.couponForm.get('automaticDeactivationDate').value));
+
     this.store.dispatch(new SaveCoupon({ coupon: this.couponForm.value }));
   }
 

@@ -1,6 +1,5 @@
 package com.luan.nogue.establishment.service;
 
-import com.luan.nogue.establishment.model.CustomUserDetailsService;
 import com.luan.nogue.establishment.model.Establishment;
 import static org.junit.Assert.*;
 

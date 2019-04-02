@@ -39,11 +39,11 @@ public class CouponService {
         return coupons;
     }
 
-    public List<Coupon> findAllByEstablishment(String username) {
+    public List<Coupon> findAllByEstablishment(Long establishmentId) {
         List<Coupon> coupons = new ArrayList<>();
         coupons.addAll(
                 couponRepository
-                        .findAllByEstablishment(username)
+                        .findAllByEstablishment(establishmentId)
                         .orElse(new ArrayList<>()));
 
         return coupons;

@@ -26,7 +26,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { Login } from 'src/app/auth/actions/auth.actions';
 import { CouponService } from 'src/app/shared/service/coupon.service';
-import { LocalizationService } from 'src/app/shared/service/localizations.service';
+import { LocationService } from 'src/app/shared/service/locations.service';
 import { StorageService } from 'src/app/shared/service/storage.service';
 import { FileService } from 'src/app/shared/service/file.service';
 import { noop } from 'rxjs';
@@ -54,7 +54,7 @@ export class EstablishmentEffects {
     ofType<LoadEstablishment>(EstablishmentActionTypes.LoadEstablishment),
     tap(() => this.establishmentService.findEstablishment().subscribe((establishment) => {
       this.store.dispatch(new LoadEstablishmentSuccess({ establishment }));
-      this.store.dispatch(new LoadCoupons());
+      this.store.dispatch(new LoadCoupons({ establishmentId: establishment.id.toString()}));
     }, error => {
       console.log('Erro ao carregar o estabelecimento: ', error);
     }))
@@ -86,7 +86,8 @@ export class EstablishmentEffects {
   @Effect({ dispatch: false })
   loadCoupons$ = this.actions$.pipe(
     ofType<LoadCoupons>(EstablishmentActionTypes.LoadCoupons),
-    tap(() => this.couponService.findAll().subscribe((coupons) => {
+    tap((action) => this.establishmentService
+      .findEstablishmentCoupons(action.payload.establishmentId).subscribe((coupons) => {
       this.store.dispatch(new LoadCouponsSuccess({ coupons }));
     }, error => {
       console.log('Erro ao carregar os cupons: ', error);
@@ -161,7 +162,7 @@ export class EstablishmentEffects {
     private couponService: CouponService,
     private router: Router,
     private store: Store<AppState>,
-    private localizationService: LocalizationService,
+    private localizationService: LocationService,
     private storageService: StorageService,
     private fileService: FileService
   ) { }

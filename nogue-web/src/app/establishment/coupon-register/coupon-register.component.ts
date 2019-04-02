@@ -10,6 +10,7 @@ import { BlockUI } from 'primeng/primeng';
 import { FileService } from 'src/app/shared/service/file.service';
 import { of, Observable, Subscription } from 'rxjs';
 import { Image } from 'src/app/shared/model/image.model';
+import { dateAsString, stringAsDate } from 'src/app/shared/util/string.util';
 
 @Component({
   selector: 'app-coupon-register',
@@ -35,6 +36,9 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
     private store: Store<AppState>
   ) {
 
+    let date = new Date();
+    date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3);
+
     this.couponForm = fb.group({
       product: new FormControl('', Validators.compose([
         Validators.minLength(3),
@@ -44,7 +48,7 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
       unlimited: new FormControl(false),
-      automaticDeactivationDate: new FormControl(null),
+      automaticDeactivationDate: new FormControl(`${dateAsString(date)}`),
       discount: new FormControl('', Validators.compose([
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
@@ -75,6 +79,10 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
 
   public create() {
     this.store.select(selectEstablishment).subscribe((establishment) => {
+      console.log(this.couponForm.get('automaticDeactivationDate').value);
+      this.couponForm
+        .get('automaticDeactivationDate')
+        .setValue(stringAsDate(this.couponForm.get('automaticDeactivationDate').value));
       this.store.dispatch(new SaveCoupon({
         coupon: {
           ...this.couponForm.value,

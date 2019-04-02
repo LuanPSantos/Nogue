@@ -1,14 +1,12 @@
 <div class="ui-g">
   <div class="ui-g-12">
     <p-card>
-      <div>
-        <p class="establishment-name">{{coupon?.establishment?.businessName}}</p>
-        <p class="discount">{{coupon?.discount}}% off</p>
-        <p class="product">{{coupon?.product}}</p>
-      </div>
-      <p-footer>
-          <button class="full-width ui-button-primary" pButton [label]="label" (click)="onButtonClick()"></button>
-      </p-footer>
+      <p-header>
+        <p><strong>{{coupon?.product}}</strong></p>
+        <img class="coupon-image" [src]="coupon?.image">
+        <span class="discount">{{coupon?.discount}}%</span><span class="establishment-name">{{coupon?.establishment?.businessName}}</span>
+      </p-header>
+        <button class="full-width ui-button-primary" pButton [label]="label" (click)="onButtonClick()"></button>
     </p-card>
   </div>
 </div>

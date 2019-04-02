@@ -1,4 +1,4 @@
-package com.luan.nogue.establishment.model;
+package com.luan.nogue.establishment.service;
 
 import com.luan.nogue.establishment.repository.EstablishmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
 package com.luan.nogue.establishment.service;
 
+import com.luan.nogue.coupon.model.Coupon;
+import com.luan.nogue.coupon.service.CouponService;
 import com.luan.nogue.establishment.model.Establishment;
 import com.luan.nogue.establishment.model.EstablishmentCredentials;
 import com.luan.nogue.location.repository.CityRepository;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +24,8 @@ public class EstablishmentService {
     private EstablishmentCredentialsRepository establishmentCredentialsRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private CouponService couponService;
 
     @Transactional
     public void updateEstablishment(Establishment establishment) {
@@ -64,5 +69,9 @@ public class EstablishmentService {
 
     public void delete(Long id){
         this.establishmentRepository.deleteById(id);
+    }
+
+    public List<Coupon> findAllCoupons(Long id) {
+        return couponService.findAllByEstablishment(id);
     }
 }

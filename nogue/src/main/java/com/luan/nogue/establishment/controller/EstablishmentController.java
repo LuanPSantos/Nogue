@@ -1,5 +1,6 @@
 package com.luan.nogue.establishment.controller;
 
+import com.luan.nogue.coupon.model.Coupon;
 import com.luan.nogue.establishment.model.Establishment;
 import com.luan.nogue.establishment.model.EstablishmentCredentials;
 import com.luan.nogue.establishment.service.EstablishmentService;
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(path = "establishment")
+@RequestMapping(path = "establishments")
 public class EstablishmentController {
 
     @Autowired
@@ -39,5 +42,10 @@ public class EstablishmentController {
     @DeleteMapping(path = "{id}")
     public void delete(@PathVariable("id") Long id){
         this.establishmentService.delete(id);
+    }
+
+    @GetMapping(path = "{id}/coupons")
+    public List<Coupon> findEstablishmentCoupons(@PathVariable("id") Long id){
+        return establishmentService.findAllCoupons(id);
     }
 }

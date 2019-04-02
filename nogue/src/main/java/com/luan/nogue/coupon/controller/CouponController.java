@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("coupon")
+@RequestMapping("coupons")
 public class CouponController {
 
     @Autowired
@@ -31,14 +31,6 @@ public class CouponController {
             @RequestParam(value = "businessName", required = false) String businessName){
 
         return couponService.findAllForCustomers(cityId, businessName);
-    }
-
-    @GetMapping(path = "all")
-    public List<Coupon> findAllByEstablishment(
-            Authentication authentication){
-
-        String username = (String) authentication.getPrincipal();
-        return couponService.findAllByEstablishment(username);
     }
 
     @DeleteMapping(path = "{id}")

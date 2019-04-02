@@ -68,6 +68,8 @@ export class DeleteEstablishment implements Action {
 
 export class LoadCoupons implements Action {
   readonly type = EstablishmentActionTypes.LoadCoupons;
+
+  constructor(public payload: { establishmentId: string }) { }
 }
 
 export class LoadCouponsSuccess implements Action {
