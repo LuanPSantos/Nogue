@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <app-coupons-list buttonLabel="Editar" [coupons]="activeCoupons$ | async" (buttonClick)="onCouponOpen($event)"></app-coupons-list>
+    <app-coupons-list [coupons]="activeCoupons$ | async" (cardClick)="onCouponOpen($event)"></app-coupons-list>
 
   </div>
 </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <app-coupons-list buttonLabel="Editar" [coupons]="inactiveCoupons$ | async" (buttonClick)="onCouponOpen($event)"></app-coupons-list>
+    <app-coupons-list buttonLabel="Editar" [coupons]="inactiveCoupons$ | async" (cardClick)="onCouponOpen($event)"></app-coupons-list>
 
   </div>
 </div>

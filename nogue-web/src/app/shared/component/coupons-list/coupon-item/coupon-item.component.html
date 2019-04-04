@@ -1,4 +1,4 @@
-<div class="ui-g">
+<div class="ui-g" (click)="onClick()">
   <div class="ui-g-12">
     <p-card>
       <p-header>
@@ -6,7 +6,6 @@
         <img class="coupon-image" [src]="coupon?.image">
         <span class="discount">{{coupon?.discount}}%</span><span class="establishment-name">{{coupon?.establishment?.businessName}}</span>
       </p-header>
-        <button class="full-width ui-button-primary" pButton [label]="label" (click)="onButtonClick()"></button>
     </p-card>
   </div>
 </div>
