@@ -3,7 +3,7 @@ p {
 }
 
 .establishment-name {
-  width: 50%;
+  width: 100%;
   display: inline-block;
   text-align: center;
   background-color: #eee;
@@ -13,11 +13,15 @@ p {
   background-color: #e91224;
   color: white;
   font-weight: bold;
-  width: 50%;
+  width: 100%;
   display: inline-block;
   text-align: center;
 }
 
 .coupon-image{
   border-radius: 3px 3px 0 0;
+}
+
+.original-price{
+  text-decoration: line-through
 }

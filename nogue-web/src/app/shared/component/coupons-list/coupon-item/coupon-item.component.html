@@ -2,10 +2,13 @@
   <div class="ui-g-12">
     <p-card>
       <p-header>
-        <p><strong>{{coupon?.product}}</strong></p>
         <img class="coupon-image" [src]="coupon?.image">
-        <span class="discount">{{coupon?.discount}}%</span><span class="establishment-name">{{coupon?.establishment?.businessName}}</span>
+        <p><strong>{{coupon?.product}}</strong> - {{coupon?.establishment?.businessName}}</p>
+        <!-- <span class="establishment-name">{{coupon?.establishment?.businessName}}</span> -->
+        <span class="discount">{{coupon?.discount}}% off</span>
       </p-header>
+        <p>De <span class="original-price">{{coupon?.originalPrice | currency: 'BRL'}}</span> 
+          por <strong>{{applyDiscount(coupon?.originalPrice, coupon?.discount) | currency: 'BRL'}}</strong></p>
     </p-card>
   </div>
 </div>

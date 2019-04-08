@@ -22,4 +22,8 @@ export class CouponItemComponent implements OnInit {
   public onClick() {
     this.cardClick.emit(this.coupon);
   }
+
+  public applyDiscount(price: number = 0, discount = 0): number {
+    return (1 - discount / 100) * price;
+  }
 }
