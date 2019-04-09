@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("files")
 public class FileController {
@@ -14,7 +16,7 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("images")
-    public Image uploadImage(@RequestParam MultipartFile image) {
+    public Image uploadImage(@RequestParam MultipartFile image) throws IOException {
         return fileService.saveImage(image);
     }
 

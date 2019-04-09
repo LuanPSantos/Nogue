@@ -4,20 +4,23 @@ import java.io.Serializable;
 
 public class Image implements Serializable {
 
-    private String url;
+    private String fullImage;
+    private String smallImage;
 
     public Image() {
     }
 
-    public Image(String url) {
-        this.url = url;
+    public Image(String fullImage, String smallImage) {
+        this.fullImage = fullImage;
+        this.smallImage = smallImage;
     }
 
-    public String getUrl() {
-        return url;
+    public String getSmallImage() {
+        return smallImage;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getFullImage() {
+        return fullImage;
     }
+
 }
