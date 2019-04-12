@@ -10,6 +10,7 @@ import { Observable, of, Subscription, merge } from 'rxjs';
 import { Image } from 'src/app/shared/model/image.model';
 import { mergeMap, map, filter } from 'rxjs/operators';
 import { dateAsString, stringAsDate } from 'src/app/shared/util/string.util';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-update-coupon',
@@ -23,6 +24,7 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
     { label: 'Inativo', value: 'INACTIVE' }
   ];
 
+  public baseURL = environment.BASE_URL;
   public couponForm: FormGroup;
   public image$: Observable<Image> = of({});
   public loadingImage$: Observable<boolean> = of(false);
@@ -79,7 +81,7 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
         this.couponForm.get('image').setValue(coupon.image);
         this.couponForm.get('originalPrice').setValue(coupon.originalPrice);
 
-        formImage$ = of({ url: coupon.image });
+        formImage$ = of<Image>(coupon.image);
       }).unsubscribe();
 
     this.image$ = merge(formImage$, this.store.select(selectNewCouponImage)).pipe(
@@ -89,7 +91,7 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
 
     this.imageSubscription = this.image$.subscribe((image: Image) => {
       if (image) {
-        this.couponForm.get('image').setValue(image.url);
+        this.couponForm.get('image').setValue(image);
       }
     });
   }
@@ -130,10 +132,14 @@ export class UpdateCouponComponent implements OnInit, OnDestroy {
   }
 
   private deleteImage() {
-    let image: string = this.couponForm.get('image').value;
-    image = image.substr(image.lastIndexOf('/') + 1);
+    let img = this.couponForm.get('image').value;
 
-    this.store.dispatch(new DeleteImage({ imagaName: image }));
+    if(img){
+      let image: string = img.fullImage;
+      image = image.substr(image.lastIndexOf('/') + 1);
+  
+      this.store.dispatch(new DeleteImage({ imagaName: image }));
+    }
   }
 
 }

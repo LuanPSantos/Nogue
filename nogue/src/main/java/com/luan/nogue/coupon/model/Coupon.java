@@ -1,6 +1,7 @@
 package com.luan.nogue.coupon.model;
 
 import com.luan.nogue.establishment.model.Establishment;
+import com.luan.nogue.image.model.Image;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,8 @@ public class Coupon implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String product;
-    private String image;
+    @OneToOne
+    private Image image;
     private Integer amount;
     private Boolean unlimited;
     @Column(nullable = false)
@@ -32,11 +34,11 @@ public class Coupon implements Serializable {
     @Column(nullable = false)
     private Status status;
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 

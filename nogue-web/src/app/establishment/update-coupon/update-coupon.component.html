@@ -11,7 +11,7 @@
         <p-fileUpload #uploader name="files[]" mode="basic" chooseLabel="Selecione a imagem do produto" styleClass="full-width"
           auto="auto" customUpload="true" (uploadHandler)="upload($event)" accept="image/*"></p-fileUpload>
         <p-progressBar *ngIf="loadingImage$ | async" mode="indeterminate" [style]="{'height': '4px'}"></p-progressBar>
-        <div class="product-image" [ngStyle]="{'background-image': 'url(' + ( image$ | async)?.url + ')'}"></div>
+        <div class="product-image" [ngStyle]="{'background-image': 'url(' + baseURL + ( image$ | async)?.fullImage + ')'}"></div>
       </div>
 
       <div class="ui-g-12 input-coupon">

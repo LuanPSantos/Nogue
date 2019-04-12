@@ -1,6 +1,9 @@
 package com.luan.nogue.image.service;
 
+import com.luan.nogue.coupon.service.CouponService;
 import com.luan.nogue.image.model.Image;
+import com.luan.nogue.image.repository.ImageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +18,7 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    private final String SMALL_PREFIX = "-small";
+    private final String SMALL_PREFIX = "small_";
 
     @Value("${image.directory}")
     private String imageDirectory;
@@ -23,6 +26,16 @@ public class FileService {
     private String imagePath;
     @Value("${base.url}")
     private String baseUrl;
+    @Value("${image.width}")
+    private Integer width;
+    @Value("${image.height}")
+    private Integer height;
+
+    @Autowired
+    private ImageRepository imageRepository;
+
+    @Autowired
+    private CouponService couponService;
 
     public Image saveImage(MultipartFile image) throws IOException {
         String imageName = UUID.randomUUID().toString();
@@ -31,9 +44,9 @@ public class FileService {
                 .substring(image.getOriginalFilename().lastIndexOf(".") + 1);
 
         save(new ByteArrayInputStream(image.getBytes()), imageDirectory + imageName + "." + format, format);
-        resizeImageAndSave(imageName + "." + format, 70, 50, format);
+        resizeImageAndSave(imageName + "." + format, width, height, format);
 
-        return new Image(baseUrl + imagePath + imageName + "." + format, baseUrl + imagePath + SMALL_PREFIX + imageName + "." + format);
+        return imageRepository.save(new Image(imagePath + imageName + "." + format, imagePath + SMALL_PREFIX + imageName + "." + format));
     }
 
     public void deleteImage(String imageName) {

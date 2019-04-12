@@ -11,6 +11,7 @@ import { FileService } from 'src/app/shared/service/file.service';
 import { of, Observable, Subscription } from 'rxjs';
 import { Image } from 'src/app/shared/model/image.model';
 import { dateAsString, stringAsDate } from 'src/app/shared/util/string.util';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-coupon-register',
@@ -23,7 +24,7 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
     { label: 'Ativo', value: 'ACTIVE' },
     { label: 'Inativo', value: 'INACTIVE' }
   ];
-
+  public baseURL = environment.BASE_URL;
   public couponForm: FormGroup;
   public image$: Observable<Image> = of({});
   public loadingImage$: Observable<boolean> = of(false);
@@ -53,7 +54,7 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
         Validators.min(0),
         Validators.pattern('[0-9]*')])),
       status: new FormControl('', Validators.required),
-      image: new FormControl(''),
+      image: new FormControl(null),
       originalPrice: new FormControl('', Validators.compose([
         Validators.min(0),
         Validators.pattern('[0-9]*')]))
@@ -68,7 +69,7 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
 
     this.imageSubscription = this.image$.subscribe((image: Image) => {
       if (image) {
-        this.couponForm.get('image').setValue(image.url);
+        this.couponForm.get('image').setValue(image);
       }
     });
   }
@@ -79,7 +80,7 @@ export class CouponRegisterComponent implements OnInit, OnDestroy {
 
   public create() {
     this.store.select(selectEstablishment).subscribe((establishment) => {
-      console.log(this.couponForm.get('automaticDeactivationDate').value);
+      console.log(this.couponForm.value);
       this.couponForm
         .get('automaticDeactivationDate')
         .setValue(stringAsDate(this.couponForm.get('automaticDeactivationDate').value));

@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     @Query("Select coupon from Coupon coupon " +
+            "join fetch coupon.image " +
             "join fetch coupon.establishment establishment " +
             "join coupon.establishment.city city " +
             "where establishment.businessName like concat('%',:businessName,'%') "+
@@ -24,12 +25,14 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
     Optional<List<Coupon>> findAllForCustomers(City city, String businessName, Status status);
 
     @Query("Select coupon from Coupon coupon " +
+            "join fetch coupon.image " +
             "join fetch coupon.establishment establishment " +
             "where establishment.id = :establishmentId "
     )
     Optional<List<Coupon>> findAllByEstablishment(Long establishmentId);
 
     @Query("Select coupon from Coupon coupon " +
+            "join fetch coupon.image " +
             "where coupon.automaticDeactivationDate <= :date"
     )
     Optional<List<Coupon>> findCouponsToDeactivation(LocalDateTime date);

@@ -2,7 +2,7 @@
   <div class="ui-g-12">
     <p-card>
       <p-header>
-        <img class="coupon-image" [src]="coupon?.image">
+        <img class="coupon-image" [src]="baseURL + coupon?.image?.smallImage">
         <p><strong>{{coupon?.product}}</strong> - {{coupon?.establishment?.businessName}}</p>
         <!-- <span class="establishment-name">{{coupon?.establishment?.businessName}}</span> -->
         <span class="discount">{{coupon?.discount}}% off</span>

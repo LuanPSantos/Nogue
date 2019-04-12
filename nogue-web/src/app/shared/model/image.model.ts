@@ -1,3 +1,5 @@
 export class Image {
-  public url?: string;
+  public id?: number;
+  public fullImage?: string;
+  public smallImage?: string;
 }

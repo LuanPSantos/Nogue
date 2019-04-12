@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Coupon } from 'src/app/shared/model/coupon.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-coupon-item',
@@ -7,6 +8,8 @@ import { Coupon } from 'src/app/shared/model/coupon.model';
   styleUrls: ['./coupon-item.component.css']
 })
 export class CouponItemComponent implements OnInit {
+
+  public baseURL = environment.BASE_URL;
 
   @Input()
   public coupon: Coupon;
